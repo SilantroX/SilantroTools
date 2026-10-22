@@ -1,0 +1,50 @@
+---
+// src/components/ads/AdSlot.astro
+interface Props {
+  slotId?: string;
+  format?: 'rectangle' | 'leaderboard' | 'horizontal-responsive';
+  className?: string;
+}
+
+const { slotId = 'default-slot', format = 'rectangle', className = '' } = Astro.props;
+
+// Dimensiones fijas mínimas para garantizar CLS = 0
+const formatClasses = {
+  rectangle: 'min-h-[250px] min-w-[300px] max-w-[336px]',
+  leaderboard: 'min-h-[90px] w-full max-w-[728px]',
+  'horizontal-responsive': 'min-h-[100px] w-full max-w-4xl',
+}[format];
+---
+
+<aside
+  class={`ad-slot-reserved my-8 flex flex-col items-center justify-center mx-auto ${className}`}
+  aria-label="Espacio publicitario"
+>
+  <span class="text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1.5 font-semibold">
+    Publicidad
+  </span>
+  <div
+    class={`relative flex items-center justify-center rounded-xl border border-dashed border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/40 text-center overflow-hidden transition-all ${formatClasses}`}
+  >
+    {import.meta.env.PROD && slotId !== 'default-slot' ? (
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+    ) : (
+      <div class="p-4 text-xs text-slate-400 dark:text-slate-500 flex flex-col items-center gap-1.5 select-none">
+        <svg class="w-5 h-5 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="1.5"></rect>
+          <line x1="8" y1="21" x2="16" y2="21" stroke-width="1.5"></line>
+          <line x1="12" y1="17" x2="12" y2="21" stroke-width="1.5"></line>
+        </svg>
+        <span class="font-medium">Espacio publicitario reservado (Zero CLS)</span>
+        <span class="text-[10px] opacity-75">Configurado para Google AdSense</span>
+      </div>
+    )}
+  </div>
+</aside>

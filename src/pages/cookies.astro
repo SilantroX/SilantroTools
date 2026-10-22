@@ -1,0 +1,59 @@
+---
+// src/pages/cookies.astro
+import LegalLayout from '@/layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="Política de Cookies"
+  description="Información detallada sobre el uso de cookies y almacenamiento local en Silantro Tools."
+>
+  <h2>1. ¿Qué son las Cookies?</h2>
+  <p>
+    Una cookie es un pequeño archivo de texto que un sitio web guarda en tu ordenador o dispositivo móvil cuando lo visitas. Permite que el sitio recuerde tus acciones y preferencias (como el tema oscuro o preferencias de visualización) durante un período de tiempo.
+  </p>
+
+  <h2>2. Cookies y Almacenamiento Utilizados en Silantro Tools</h2>
+  <div class="overflow-x-auto my-6">
+    <table class="w-full text-left text-sm border-collapse">
+      <thead>
+        <tr class="border-b border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white">
+          <th class="py-2.5 px-3">Nombre / Clave</th>
+          <th class="py-2.5 px-3">Tipo</th>
+          <th class="py-2.5 px-3">Propósito</th>
+          <th class="py-2.5 px-3">Duración</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-xs">
+        <tr>
+          <td class="py-2 px-3 font-mono">theme</td>
+          <td class="py-2 px-3">localStorage (Propio)</td>
+          <td class="py-2 px-3">Guarda la preferencia del usuario entre Modo Claro y Modo Oscuro.</td>
+          <td class="py-2 px-3">Persistente</td>
+        </tr>
+        <tr>
+          <td class="py-2 px-3 font-mono">__cf_bm, _cfuvid</td>
+          <td class="py-2 px-3">Cookie Técnica (Cloudflare)</td>
+          <td class="py-2 px-3">Mitigación de bots y protección contra ataques automatizados.</td>
+          <td class="py-2 px-3">30 minutos</td>
+        </tr>
+        <tr>
+          <td class="py-2 px-3 font-mono">_ga, _gid</td>
+          <td class="py-2 px-3">Analítica (Google)</td>
+          <td class="py-2 px-3">Métricas anonimizadas de tráfico y páginas visitadas.</td>
+          <td class="py-2 px-3">Hasta 2 años</td>
+        </tr>
+        <tr>
+          <td class="py-2 px-3 font-mono">IDE, __gads</td>
+          <td class="py-2 px-3">Publicidad (Google AdSense)</td>
+          <td class="py-2 px-3">Entrega y limitación de frecuencia de anuncios en el sitio web.</td>
+          <td class="py-2 px-3">Hasta 13 meses</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>3. Cómo Administrar o Deshabilitar las Cookies</h2>
+  <p>
+    Puedes bloquear o eliminar las cookies en cualquier momento ajustando la configuración de tu navegador web. Ten en cuenta que si deshabilitas ciertas cookies técnicas o de almacenamiento local, algunas preferencias (como recordar el modo oscuro) podrían no guardarse entre sesiones.
+  </p>
+</LegalLayout>

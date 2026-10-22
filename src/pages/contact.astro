@@ -1,0 +1,58 @@
+---
+// src/pages/contact.astro
+import LegalLayout from '@/layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="Contacto y Soporte"
+  description="Ponte en contacto con el equipo de ingeniería de Silantro Labs."
+>
+  <p>
+    En <strong>Silantro Labs</strong> valoramos tus comentarios, reportes de errores técnicos y sugerencias para nuevas micro-herramientas. Nuestro equipo técnico revisa periódicamente las comunicaciones para mejorar la plataforma.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8 not-prose">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6">
+      <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">Correo Electrónico</h3>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
+        Consultas generales, reportes de vulnerabilidades y alianzas.
+      </p>
+      <a
+        href="mailto:contacto@silantrolabs.com"
+        class="text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline"
+      >
+        contacto@silantrolabs.com
+      </a>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6">
+      <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+        </svg>
+      </div>
+      <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">Laboratorio de Desarrollo</h3>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
+        Silantro Labs • Ingeniería de Software y Soluciones Web
+      </p>
+      <a
+        href="https://silantrolabs.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+      >
+        silantrolabs.com
+      </a>
+    </div>
+  </div>
+
+  <h2>Reporte de Errores o Fallos de Seguridad</h2>
+  <p>
+    Si encuentras un fallo de legibilidad en los códigos generados o identificas algún problema de renderizado en navegadores antiguos, por favor incluye en tu mensaje el tipo de navegador, sistema operativo y los parámetros utilizados para reproducir la incidencia con exactitud.
+  </p>
+</LegalLayout>

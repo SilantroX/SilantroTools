@@ -1,0 +1,114 @@
+---
+// src/components/common/Footer.astro
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 transition-colors mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Brand & Mission -->
+      <div class="md:col-span-2 space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white overflow-hidden">
+            <img
+              src="/logos/logo-con-fondo.jpg"
+              alt="Silantro Labs"
+              class="w-full h-full object-cover"
+              onerror="this.style.display='none'"
+            />
+          </div>
+          <span class="font-bold text-lg text-slate-900 dark:text-white">
+            Silantro<span class="text-brand-600 dark:text-brand-400">Tools</span>
+          </span>
+        </div>
+        <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md leading-relaxed">
+          Plataforma de micro-herramientas gratuitas orientada a la privacidad. Todo el procesamiento (generación, formateo y conversión) se ejecuta 100% en la memoria de tu navegador sin transmitir datos a servidores externos.
+        </p>
+        <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+          <span class="inline-flex items-center gap-1">
+            <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+            Zero Server Egress
+          </span>
+          <span>•</span>
+          <span>Sin registro obligatorio</span>
+          <span>•</span>
+          <span>Código Abierto & Gratuito</span>
+        </div>
+      </div>
+
+      <!-- Herramientas -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-4">
+          Herramientas
+        </h3>
+        <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
+          <li>
+            <a href="/tools/qr-generator/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors flex items-center gap-1.5">
+              Generador de QR
+              <span class="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-brand-100 text-brand-700 dark:bg-brand-950 dark:text-brand-300">Nuevo</span>
+            </a>
+          </li>
+          <li>
+            <span class="text-slate-400 dark:text-slate-600 flex items-center justify-between">
+              Formateador JSON
+              <span class="text-[10px] italic">Pronto</span>
+            </span>
+          </li>
+          <li>
+            <span class="text-slate-400 dark:text-slate-600 flex items-center justify-between">
+              Generador Base64
+              <span class="text-[10px] italic">Pronto</span>
+            </span>
+          </li>
+          <li>
+            <span class="text-slate-400 dark:text-slate-600 flex items-center justify-between">
+              Contador de Palabras
+              <span class="text-[10px] italic">Pronto</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Legal e Institucional -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-4">
+          Transparencia y Legal
+        </h3>
+        <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
+          <li>
+            <a href="/privacy/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+              Política de Privacidad
+            </a>
+          </li>
+          <li>
+            <a href="/terms/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+              Términos de Servicio
+            </a>
+          </li>
+          <li>
+            <a href="/cookies/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+              Política de Cookies
+            </a>
+          </li>
+          <li>
+            <a href="/contact/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+              Contacto y Soporte
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-slate-200 dark:border-slate-800/80 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4">
+      <p>
+        &copy; {currentYear} Silantro Labs. Todos los derechos reservados.
+      </p>
+      <p class="flex items-center gap-1">
+        Alojado globalmente en Cloudflare Pages
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,42 @@
+---
+// src/pages/privacy.astro
+import LegalLayout from '@/layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="Política de Privacidad"
+  description="Conoce cómo Silantro Tools garantiza tu privacidad absoluta mediante el procesamiento exclusivo en el cliente."
+>
+  <h2>1. Compromiso Central de Privacidad (Zero Server Egress)</h2>
+  <p>
+    En <strong>Silantro Tools</strong> (operado por Silantro Labs), la privacidad del usuario no es un añadido, sino la base arquitectónica de nuestro sistema. Nuestras micro-herramientas (generadores de códigos QR, formateadores, conversores y codificadores) están diseñadas para ejecutarse <strong>exclusivamente en el navegador web del usuario</strong> utilizando JavaScript y APIs Web del estándar W3C.
+  </p>
+  <p>
+    <strong>Ningún texto, cadena alfanumérica, archivo, imagen o código que ingreses o proceses en nuestras herramientas se transmite, almacena, analiza o registra en servidores de Silantro Labs ni de terceros.</strong> Todo el ciclo de vida del procesamiento ocurre en la memoria volátil de tu dispositivo y se destruye tan pronto como cierras o recargas la pestaña del navegador.
+  </p>
+
+  <h2>2. Datos Técnicos Recopilados Automáticamente</h2>
+  <p>
+    Al visitar <code>tools.silantrolabs.com</code>, nuestro proveedor de infraestructura de red de entrega de contenidos (Cloudflare Pages) recopila registros técnicos básicos del servidor (dirección IP anonimizada, tipo de agente de usuario, marcas de tiempo y URLs solicitadas) con el único fin de mitigar ataques de denegación de servicio (DDoS), prevenir actividades maliciosas y garantizar la entrega estática global de los recursos.
+  </p>
+
+  <h2>3. Publicidad y Cookies de Terceros (Google AdSense)</h2>
+  <p>
+    Para mantener este servicio completamente gratuito, libre de registros y sin barreras de pago, Silantro Tools utiliza proveedores publicitarios externos como <strong>Google AdSense</strong>.
+  </p>
+  <ul>
+    <li>Google, como proveedor asociado, utiliza cookies para publicar anuncios en nuestro sitio web basados en las visitas previas de los usuarios a este o a otros sitios de Internet.</li>
+    <li>El uso de cookies de publicidad permite a Google y a sus socios mostrar anuncios personalizados o no personalizados basados en los intereses de navegación.</li>
+    <li>Puedes inhabilitar la publicidad personalizada visitando la <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Configuración de Anuncios de Google</a> o el portal <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer">aboutads.info</a>.</li>
+  </ul>
+
+  <h2>4. Enlaces Externos</h2>
+  <p>
+    Nuestro sitio web puede contener enlaces hacia sitios web de terceros o recursos externos. Silantro Labs no ejerce control sobre las prácticas de privacidad ni el contenido de dichos sitios, por lo que recomendamos leer las políticas individuales de cada entidad.
+  </p>
+
+  <h2>5. Contacto sobre Privacidad</h2>
+  <p>
+    Si tienes dudas, consultas o sugerencias respecto a esta Política de Privacidad o a la arquitectura de procesamiento en el cliente, puedes comunicarte con nuestro equipo a través de nuestra página de <a href="/contact/">Contacto</a> o escribiendo a <code>contacto@silantrolabs.com</code>.
+  </p>
+</LegalLayout>

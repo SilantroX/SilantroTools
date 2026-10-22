@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #eefbf4;
+  --color-brand-100: #d7f6e4;
+  --color-brand-200: #b2eccb;
+  --color-brand-300: #7ddbaa;
+  --color-brand-400: #43c182;
+  --color-brand-500: #1ea565;
+  --color-brand-600: #13844f;
+  --color-brand-700: #116840;
+  --color-brand-800: #115335;
+  --color-brand-900: #0f442d;
+  --color-brand-950: #07261a;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f8fafc;
+    --color-text-primary: #0f172a;
+    --color-text-muted: #64748b;
+  }
+
+  .dark {
+    --color-bg-primary: #0b0f17;
+    --color-bg-secondary: #111827;
+    --color-text-primary: #f8fafc;
+    --color-text-muted: #94a3b8;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+}
+
+/* Zero CLS ad helper */
+.ad-slot-reserved {
+  content-visibility: auto;
+  contain-intrinsic-size: 250px;
+}
