@@ -6,43 +6,37 @@
   id="theme-toggle"
   type="button"
   aria-label="Alternar tema visual claro y oscuro"
-  class="relative inline-flex items-center justify-center p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500"
+  class="p-1.5 rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors focus:outline-none"
 >
   <!-- Sol (visible en modo oscuro) -->
   <svg
     id="theme-toggle-light-icon"
-    class="w-5 h-5 hidden"
+    class="w-4 h-4 hidden"
     fill="none"
     stroke="currentColor"
+    stroke-width="1.5"
     viewBox="0 0 24 24"
     aria-hidden="true"
   >
-    <circle cx="12" cy="12" r="5" stroke-width="2"></circle>
-    <line x1="12" y1="1" x2="12" y2="3" stroke-width="2" stroke-linecap="round"></line>
-    <line x1="12" y1="21" x2="12" y2="23" stroke-width="2" stroke-linecap="round"></line>
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke-width="2" stroke-linecap="round"></line>
-    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke-width="2" stroke-linecap="round"></line>
-    <line x1="1" y1="12" x2="3" y2="12" stroke-width="2" stroke-linecap="round"></line>
-    <line x1="21" y1="12" x2="23" y2="12" stroke-width="2" stroke-linecap="round"></line>
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke-width="2" stroke-linecap="round"></line>
-    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke-width="2" stroke-linecap="round"></line>
+    <circle cx="12" cy="12" r="4"></circle>
+    <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
   </svg>
 
   <!-- Luna (visible en modo claro) -->
   <svg
     id="theme-toggle-dark-icon"
-    class="w-5 h-5 hidden"
+    class="w-4 h-4 hidden"
     fill="none"
     stroke="currentColor"
+    stroke-width="1.5"
     viewBox="0 0 24 24"
     aria-hidden="true"
   >
     <path
       stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="2"
-      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-    ></path>
+      d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+    />
   </svg>
 </button>
 
@@ -54,7 +48,6 @@
 
     if (!themeToggleBtn || !themeToggleDarkIcon || !themeToggleLightIcon) return;
 
-    // Detectar tema actual
     const isDark = document.documentElement.classList.contains('dark') ||
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
@@ -84,7 +77,6 @@
     });
   }
 
-  // Ejecutar inmediatamente y en navegaciones Astro SPA (si se habilita ViewTransitions)
   setupThemeToggle();
   document.addEventListener('astro:after-swap', setupThemeToggle);
 </script>

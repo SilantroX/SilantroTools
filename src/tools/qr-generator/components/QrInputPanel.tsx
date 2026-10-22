@@ -6,79 +6,76 @@ interface Props {
   onChange: (updates: Partial<QrOptionsState>) => void;
 }
 
-const contentTypes: Array<{ id: QrContentType; label: string; icon: string }> = [
-  { id: 'url', label: 'Enlace / URL', icon: '🔗' },
-  { id: 'text', label: 'Texto Libre', icon: '📄' },
-  { id: 'wifi', label: 'Red Wi-Fi', icon: '📶' },
-  { id: 'email', label: 'Email', icon: '✉️' },
-  { id: 'vcard', label: 'Contacto (vCard)', icon: '👤' },
+const contentTypes: Array<{ id: QrContentType; label: string }> = [
+  { id: 'url', label: 'Enlace / URL' },
+  { id: 'text', label: 'Texto Plano' },
+  { id: 'wifi', label: 'Red Wi-Fi' },
+  { id: 'email', label: 'Correo Electrónico' },
+  { id: 'vcard', label: 'Tarjeta de Contacto (vCard)' },
 ];
 
 export default function QrInputPanel({ state, onChange }: Props) {
   return (
-    <div class="space-y-5">
-      {/* Selector Horizontal de Tipo de Contenido (Mobile-friendly horizontal scroll) */}
+    <div class="space-y-6">
+      {/* Selector de Tipo de Contenido (Monocromático, sin emojis) */}
       <div>
-        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2.5">
-          Tipo de Información
+        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2">
+          01.1 / Tipo de Carga Útil
         </label>
-        <div class="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-2 border-b border-neutral-200 dark:border-neutral-800">
           {contentTypes.map((type) => {
             const isActive = state.contentType === type.id;
             return (
               <button
                 type="button"
                 onClick={() => onChange({ contentType: type.id })}
-                class={`flex-shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 ${
+                class={`flex-shrink-0 px-3 py-1.5 rounded text-xs transition-colors font-medium ${
                   isActive
-                    ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 shadow-sm'
-                    : 'bg-zinc-100/80 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/80 dark:bg-zinc-800/60 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800'
+                    ? 'bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900'
+                    : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900'
                 }`}
               >
-                <span>{type.icon}</span>
-                <span>{type.label}</span>
+                {type.label}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Formulario Dinámico según Tipo */}
-      <div class="glass-subtle p-4 sm:p-5 rounded-2xl transition-all">
+      {/* Formulario Dinámico */}
+      <div class="space-y-4">
         {state.contentType === 'url' && (
           <div>
-            <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
-              Dirección Web (URL)
+            <label class="block text-xs font-semibold text-neutral-900 dark:text-neutral-200 mb-1.5">
+              Dirección URL Destino
             </label>
-            <div class="relative">
-              <input
-                type="url"
-                value={state.rawText}
-                onInput={(e) => onChange({ rawText: (e.target as HTMLInputElement).value })}
-                placeholder="https://silantrolabs.com"
-                class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 transition-all placeholder:text-zinc-400"
-              />
-            </div>
-            <p class="text-[11px] text-zinc-400 dark:text-zinc-500 mt-2">
-              Se recomienda incluir siempre el protocolo <code>https://</code> para apertura automática en smartphones.
+            <input
+              type="url"
+              value={state.rawText}
+              onInput={(e) => onChange({ rawText: (e.target as HTMLInputElement).value })}
+              placeholder="https://silantrolabs.com"
+              class="w-full px-3 py-2 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 text-xs font-mono focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100 transition-colors"
+            />
+            <p class="font-mono text-[11px] text-neutral-500 mt-2">
+              Se compila como URI estándar para redirección directa al escanear.
             </p>
           </div>
         )}
 
         {state.contentType === 'text' && (
           <div>
-            <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
-              Mensaje o Texto Alfanumérico
+            <label class="block text-xs font-semibold text-neutral-900 dark:text-neutral-200 mb-1.5">
+              Texto Alfanumérico Libre
             </label>
             <textarea
               rows={4}
               value={state.rawText}
               onInput={(e) => onChange({ rawText: (e.target as HTMLTextAreaElement).value })}
-              placeholder="Escribe cualquier nota, token o fragmento de texto..."
-              class="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 transition-all placeholder:text-zinc-400 resize-y"
+              placeholder="Ingresa texto, fragmentos de código, claves o notas..."
+              class="w-full px-3 py-2 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 text-xs font-mono focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100 transition-colors resize-y"
             ></textarea>
-            <div class="flex justify-between items-center text-[11px] text-zinc-400 dark:text-zinc-500 mt-1">
-              <span>Procesado 100% en memoria RAM local</span>
+            <div class="flex justify-between font-mono text-[11px] text-neutral-500 mt-1">
+              <span>Memoria volátil local</span>
               <span>{state.rawText.length} caracteres</span>
             </div>
           </div>
@@ -87,8 +84,8 @@ export default function QrInputPanel({ state, onChange }: Props) {
         {state.contentType === 'wifi' && (
           <div class="space-y-3.5">
             <div>
-              <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-                Nombre de la Red (SSID)
+              <label class="block text-xs font-semibold text-neutral-900 dark:text-neutral-200 mb-1">
+                Nombre de Red (SSID)
               </label>
               <input
                 type="text"
@@ -98,13 +95,13 @@ export default function QrInputPanel({ state, onChange }: Props) {
                     wifi: { ...state.wifi, ssid: (e.target as HTMLInputElement).value },
                   })
                 }
-                placeholder="Ej. Silantro_Guest"
-                class="w-full px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                placeholder="Nombre de la red Wi-Fi"
+                class="w-full px-3 py-2 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 text-xs font-mono focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100"
               />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-                Contraseña de Seguridad
+              <label class="block text-xs font-semibold text-neutral-900 dark:text-neutral-200 mb-1">
+                Contraseña
               </label>
               <input
                 type="text"
@@ -114,12 +111,12 @@ export default function QrInputPanel({ state, onChange }: Props) {
                     wifi: { ...state.wifi, password: (e.target as HTMLInputElement).value },
                   })
                 }
-                placeholder="Contraseña del Wi-Fi"
-                class="w-full px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                placeholder="Clave de red"
+                class="w-full px-3 py-2 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 text-xs font-mono focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100"
               />
             </div>
-            <div class="flex items-center justify-between pt-1 text-xs">
-              <label class="font-medium text-zinc-600 dark:text-zinc-400">Encriptación:</label>
+            <div class="flex items-center justify-between text-xs pt-1">
+              <label class="font-mono text-neutral-500">Cifrado:</label>
               <select
                 value={state.wifi.encryption}
                 onChange={(e) =>
@@ -130,7 +127,7 @@ export default function QrInputPanel({ state, onChange }: Props) {
                     },
                   })
                 }
-                class="px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs font-medium"
+                class="px-2.5 py-1.5 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs font-mono"
               >
                 <option value="WPA">WPA / WPA2 / WPA3</option>
                 <option value="WEP">WEP</option>
@@ -143,27 +140,27 @@ export default function QrInputPanel({ state, onChange }: Props) {
         {state.contentType === 'email' && (
           <div class="space-y-3.5">
             <div>
-              <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-                Destinatario
+              <label class="block text-xs font-semibold text-neutral-900 dark:text-neutral-200 mb-1">
+                Dirección de Destino
               </label>
               <input
                 type="email"
                 value={state.emailAddress}
                 onInput={(e) => onChange({ emailAddress: (e.target as HTMLInputElement).value })}
-                placeholder="soporte@silantrolabs.com"
-                class="w-full px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                placeholder="contacto@silantrolabs.com"
+                class="w-full px-3 py-2 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 text-xs font-mono focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100"
               />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1">
-                Asunto Predeterminado
+              <label class="block text-xs font-semibold text-neutral-900 dark:text-neutral-200 mb-1">
+                Asunto Predefinido
               </label>
               <input
                 type="text"
                 value={state.emailSubject}
                 onInput={(e) => onChange({ emailSubject: (e.target as HTMLInputElement).value })}
-                placeholder="Consulta sobre servicios"
-                class="w-full px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
+                placeholder="Asunto del correo"
+                class="w-full px-3 py-2 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 text-xs font-mono focus:outline-none focus:border-neutral-900 dark:focus:border-neutral-100"
               />
             </div>
           </div>
@@ -172,7 +169,7 @@ export default function QrInputPanel({ state, onChange }: Props) {
         {state.contentType === 'vcard' && (
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">Nombre</label>
+              <label class="block font-mono text-[11px] text-neutral-500 mb-1">Nombre</label>
               <input
                 type="text"
                 value={state.vcard.firstName}
@@ -180,11 +177,11 @@ export default function QrInputPanel({ state, onChange }: Props) {
                   onChange({ vcard: { ...state.vcard, firstName: (e.target as HTMLInputElement).value } })
                 }
                 placeholder="Alex"
-                class="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs"
+                class="w-full px-2.5 py-1.5 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs font-mono"
               />
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">Apellido</label>
+              <label class="block font-mono text-[11px] text-neutral-500 mb-1">Apellido</label>
               <input
                 type="text"
                 value={state.vcard.lastName}
@@ -192,11 +189,11 @@ export default function QrInputPanel({ state, onChange }: Props) {
                   onChange({ vcard: { ...state.vcard, lastName: (e.target as HTMLInputElement).value } })
                 }
                 placeholder="Silantro"
-                class="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs"
+                class="w-full px-2.5 py-1.5 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs font-mono"
               />
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">Teléfono Móvil</label>
+              <label class="block font-mono text-[11px] text-neutral-500 mb-1">Teléfono</label>
               <input
                 type="tel"
                 value={state.vcard.phone}
@@ -204,11 +201,11 @@ export default function QrInputPanel({ state, onChange }: Props) {
                   onChange({ vcard: { ...state.vcard, phone: (e.target as HTMLInputElement).value } })
                 }
                 placeholder="+57 300 000 0000"
-                class="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs"
+                class="w-full px-2.5 py-1.5 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs font-mono"
               />
             </div>
             <div>
-              <label class="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">Email Profesional</label>
+              <label class="block font-mono text-[11px] text-neutral-500 mb-1">Email</label>
               <input
                 type="email"
                 value={state.vcard.email}
@@ -216,11 +213,11 @@ export default function QrInputPanel({ state, onChange }: Props) {
                   onChange({ vcard: { ...state.vcard, email: (e.target as HTMLInputElement).value } })
                 }
                 placeholder="alex@silantrolabs.com"
-                class="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs"
+                class="w-full px-2.5 py-1.5 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs font-mono"
               />
             </div>
             <div class="sm:col-span-2">
-              <label class="block text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 mb-1">Organización / Empresa</label>
+              <label class="block font-mono text-[11px] text-neutral-500 mb-1">Organización</label>
               <input
                 type="text"
                 value={state.vcard.organization || ''}
@@ -228,7 +225,7 @@ export default function QrInputPanel({ state, onChange }: Props) {
                   onChange({ vcard: { ...state.vcard, organization: (e.target as HTMLInputElement).value } })
                 }
                 placeholder="Silantro Labs"
-                class="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-xs"
+                class="w-full px-2.5 py-1.5 rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-xs font-mono"
               />
             </div>
           </div>

@@ -7,43 +7,43 @@ interface Props {
   onChange: (updates: Partial<QrOptionsState>) => void;
 }
 
-const presets: QrPreset[] = [
+const monochromePresets: QrPreset[] = [
   {
-    id: 'silantro-dark',
-    name: 'Silantro Obsidian',
-    dotsColor: '#09090b',
+    id: 'mono-black-white',
+    name: 'Obsidiana Estándar',
+    dotsColor: '#0a0a0a',
     bgColor: '#ffffff',
-    cornersSquareColor: '#09090b',
-    cornersDotColor: '#16885c',
+    cornersSquareColor: '#0a0a0a',
+    cornersDotColor: '#0a0a0a',
     dotsType: 'rounded',
     cornersSquareType: 'extra-rounded',
     cornersDotType: 'dot',
   },
   {
-    id: 'silantro-green',
-    name: 'Silantro Emerald',
-    dotsColor: '#16885c',
+    id: 'mono-graphite',
+    name: 'Grafito Neutro',
+    dotsColor: '#262626',
     bgColor: '#ffffff',
-    cornersSquareColor: '#0f442d',
-    cornersDotColor: '#22a975',
-    dotsType: 'extra-rounded',
-    cornersSquareType: 'extra-rounded',
-    cornersDotType: 'dot',
-  },
-  {
-    id: 'slate-minimal',
-    name: 'Minimal Slate',
-    dotsColor: '#18181b',
-    bgColor: '#ffffff',
-    cornersSquareColor: '#18181b',
-    cornersDotColor: '#18181b',
+    cornersSquareColor: '#262626',
+    cornersDotColor: '#262626',
     dotsType: 'dots',
     cornersSquareType: 'dot',
     cornersDotType: 'dot',
   },
   {
-    id: 'classic-square',
-    name: 'Industrial Square',
+    id: 'mono-inverted',
+    name: 'Negativo Invertido',
+    dotsColor: '#ffffff',
+    bgColor: '#0a0a0a',
+    cornersSquareColor: '#ffffff',
+    cornersDotColor: '#ffffff',
+    dotsType: 'rounded',
+    cornersSquareType: 'extra-rounded',
+    cornersDotType: 'dot',
+  },
+  {
+    id: 'mono-industrial',
+    name: 'Industrial Geométrico',
     dotsColor: '#000000',
     bgColor: '#ffffff',
     cornersSquareColor: '#000000',
@@ -56,16 +56,16 @@ const presets: QrPreset[] = [
 
 const dotOptions: Array<{ id: DotType; label: string }> = [
   { id: 'rounded', label: 'Suave' },
-  { id: 'dots', label: 'Círculos' },
-  { id: 'extra-rounded', label: 'Curvado' },
-  { id: 'classy', label: 'Elegante' },
+  { id: 'dots', label: 'Circular' },
+  { id: 'extra-rounded', label: 'Curvo' },
+  { id: 'classy', label: 'Editorial' },
   { id: 'square', label: 'Cuadrado' },
 ];
 
 const cornerOptions: Array<{ id: CornerSquareType; label: string }> = [
   { id: 'extra-rounded', label: 'Redondeado' },
   { id: 'dot', label: 'Circular' },
-  { id: 'square', label: 'Clásico' },
+  { id: 'square', label: 'Recto' },
 ];
 
 export default function QrStylePanel({ state, onChange }: Props) {
@@ -83,29 +83,29 @@ export default function QrStylePanel({ state, onChange }: Props) {
 
   return (
     <div class="space-y-6">
-      {/* Presets Rápidos */}
+      {/* Presets Monocromáticos */}
       <div>
-        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2.5">
-          Paletas y Estilos Predefinidos
+        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2.5">
+          02.1 / Presets Monocromáticos
         </label>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {presets.map((preset) => (
+          {monochromePresets.map((preset) => (
             <button
               type="button"
               onClick={() => applyPreset(preset)}
-              class="glass-subtle p-2.5 rounded-xl text-left hover:border-zinc-400 dark:hover:border-zinc-600 transition-all group flex flex-col justify-between"
+              class="p-2.5 rounded border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-left hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors"
             >
               <div class="flex items-center gap-1.5 mb-2">
                 <span
-                  class="w-3.5 h-3.5 rounded-full border border-black/10 shadow-xs"
+                  class="w-3.5 h-3.5 rounded-full border border-neutral-300 dark:border-neutral-700"
                   style={{ backgroundColor: preset.dotsColor }}
                 ></span>
                 <span
-                  class="w-3.5 h-3.5 rounded-full border border-black/10 shadow-xs"
-                  style={{ backgroundColor: preset.cornersDotColor }}
+                  class="w-3.5 h-3.5 rounded-full border border-neutral-300 dark:border-neutral-700"
+                  style={{ backgroundColor: preset.bgColor }}
                 ></span>
               </div>
-              <span class="text-xs font-medium text-zinc-800 dark:text-zinc-200 group-hover:text-zinc-950 dark:group-hover:text-white">
+              <span class="block text-xs font-semibold text-neutral-900 dark:text-neutral-100">
                 {preset.name}
               </span>
             </button>
@@ -113,20 +113,20 @@ export default function QrStylePanel({ state, onChange }: Props) {
         </div>
       </div>
 
-      {/* Forma de los Módulos / Puntos */}
+      {/* Geometría de Puntos */}
       <div>
-        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2.5">
-          Patrón de Módulos (Puntos)
+        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2">
+          02.2 / Geometría de Módulos (Puntos)
         </label>
         <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
           {dotOptions.map((opt) => (
             <button
               type="button"
               onClick={() => onChange({ dotsType: opt.id })}
-              class={`py-2 px-2.5 rounded-xl text-xs font-medium text-center transition-all ${
+              class={`py-1.5 px-2 rounded text-xs font-medium text-center border transition-colors ${
                 state.dotsType === opt.id
-                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 shadow-sm'
-                  : 'glass-subtle text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
+                  ? 'bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 border-neutral-900 dark:border-neutral-100'
+                  : 'bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400'
               }`}
             >
               {opt.label}
@@ -135,20 +135,20 @@ export default function QrStylePanel({ state, onChange }: Props) {
         </div>
       </div>
 
-      {/* Forma de las Esquinas */}
+      {/* Geometría de Esquinas */}
       <div>
-        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2.5">
-          Vértices de Escaneo (Esquinas)
+        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2">
+          02.3 / Patrón de Esquinas (Vértices)
         </label>
         <div class="grid grid-cols-3 gap-2">
           {cornerOptions.map((opt) => (
             <button
               type="button"
               onClick={() => onChange({ cornersSquareType: opt.id })}
-              class={`py-2 px-3 rounded-xl text-xs font-medium text-center transition-all ${
+              class={`py-1.5 px-3 rounded text-xs font-medium text-center border transition-colors ${
                 state.cornersSquareType === opt.id
-                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 shadow-sm'
-                  : 'glass-subtle text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
+                  ? 'bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 border-neutral-900 dark:border-neutral-100'
+                  : 'bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400'
               }`}
             >
               {opt.label}
@@ -157,48 +157,45 @@ export default function QrStylePanel({ state, onChange }: Props) {
         </div>
       </div>
 
-      {/* Selector de Colores Hexadecimales */}
-      <div class="glass-subtle p-4 rounded-2xl space-y-4">
-        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-          Personalización de Color
+      {/* Parámetros de Color */}
+      <div class="p-4 rounded border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/40 space-y-4">
+        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500">
+          02.4 / Paleta Hexadecimal
         </label>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {/* Color de Puntos */}
           <div>
-            <label class="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">
-              Puntos del Código
+            <label class="block text-[11px] font-mono text-neutral-600 dark:text-neutral-400 mb-1">
+              Color Módulos
             </label>
             <div class="flex items-center gap-2">
               <input
                 type="color"
                 value={state.dotsColor}
                 onChange={(e) => onChange({ dotsColor: (e.target as HTMLInputElement).value })}
-                class="w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 cursor-pointer bg-transparent"
+                class="w-8 h-8 rounded border border-neutral-300 dark:border-neutral-700 cursor-pointer bg-transparent"
               />
-              <span class="text-xs font-mono uppercase text-zinc-700 dark:text-zinc-300">{state.dotsColor}</span>
+              <span class="font-mono text-xs uppercase text-neutral-800 dark:text-neutral-200">{state.dotsColor}</span>
             </div>
           </div>
 
-          {/* Color de Fondo */}
           <div>
-            <label class="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">
-              Color de Fondo
+            <label class="block text-[11px] font-mono text-neutral-600 dark:text-neutral-400 mb-1">
+              Color Fondo
             </label>
             <div class="flex items-center gap-2">
               <input
                 type="color"
                 value={state.bgColor}
                 onChange={(e) => onChange({ bgColor: (e.target as HTMLInputElement).value })}
-                class="w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 cursor-pointer bg-transparent"
+                class="w-8 h-8 rounded border border-neutral-300 dark:border-neutral-700 cursor-pointer bg-transparent"
               />
-              <span class="text-xs font-mono uppercase text-zinc-700 dark:text-zinc-300">{state.bgColor}</span>
+              <span class="font-mono text-xs uppercase text-neutral-800 dark:text-neutral-200">{state.bgColor}</span>
             </div>
           </div>
 
-          {/* Color de Esquinas */}
           <div>
-            <label class="block text-[11px] font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">
-              Color de Esquinas
+            <label class="block text-[11px] font-mono text-neutral-600 dark:text-neutral-400 mb-1">
+              Color Vértices
             </label>
             <div class="flex items-center gap-2">
               <input
@@ -210,23 +207,21 @@ export default function QrStylePanel({ state, onChange }: Props) {
                     cornersDotColor: (e.target as HTMLInputElement).value,
                   })
                 }
-                class="w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 cursor-pointer bg-transparent"
+                class="w-8 h-8 rounded border border-neutral-300 dark:border-neutral-700 cursor-pointer bg-transparent"
               />
-              <span class="text-xs font-mono uppercase text-zinc-700 dark:text-zinc-300">
-                {state.cornersSquareColor}
-              </span>
+              <span class="font-mono text-xs uppercase text-neutral-800 dark:text-neutral-200">{state.cornersSquareColor}</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Margen / Zona Muda */}
+      {/* Margen */}
       <div>
         <div class="flex items-center justify-between mb-2">
-          <label class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-            Margen de Zona Muda (Quiet Zone)
+          <label class="font-mono text-[11px] uppercase tracking-wider text-neutral-500">
+            02.5 / Margen Perimetral (Quiet Zone)
           </label>
-          <span class="text-xs font-mono text-zinc-500">{state.margin} px</span>
+          <span class="font-mono text-xs text-neutral-600 dark:text-neutral-400">{state.margin} px</span>
         </div>
         <input
           type="range"
@@ -235,13 +230,8 @@ export default function QrStylePanel({ state, onChange }: Props) {
           step="2"
           value={state.margin}
           onInput={(e) => onChange({ margin: Number((e.target as HTMLInputElement).value) })}
-          class="w-full h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-zinc-900 dark:accent-zinc-100"
+          class="w-full h-1 bg-neutral-200 dark:bg-neutral-800 rounded appearance-none cursor-pointer accent-neutral-900 dark:accent-neutral-100"
         />
-        <div class="flex justify-between text-[10px] text-zinc-400 mt-1">
-          <span>0 (Sin margen)</span>
-          <span>10 (Recomendado)</span>
-          <span>30 (Margen amplio)</span>
-        </div>
       </div>
     </div>
   );

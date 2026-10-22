@@ -32,10 +32,10 @@ export default function QrTool() {
     cornersSquareType: 'extra-rounded',
     cornersDotType: 'dot',
 
-    dotsColor: '#09090b',
+    dotsColor: '#0a0a0a',
     bgColor: '#ffffff',
-    cornersSquareColor: '#09090b',
-    cornersDotColor: '#16885c',
+    cornersSquareColor: '#0a0a0a',
+    cornersDotColor: '#0a0a0a',
 
     logoUrl: undefined,
     isBrandLogoActive: false,
@@ -54,71 +54,60 @@ export default function QrTool() {
     }));
   };
 
-  const tabs: Array<{ id: TabId; label: string; badge?: string; icon: string }> = [
-    { id: 'content', label: '1. Contenido', icon: '📝' },
-    { id: 'style', label: '2. Diseño & Colores', icon: '🎨' },
+  const tabs: Array<{ id: TabId; label: string; badge?: string }> = [
+    { id: 'content', label: '01 / Contenido' },
+    { id: 'style', label: '02 / Geometría & Color' },
     {
       id: 'logo',
-      label: '3. Logo & Marca',
+      label: '03 / Marca & Logo',
       badge: qrState.logoUrl ? 'Activo' : undefined,
-      icon: '✨',
     },
   ];
 
   return (
     <div class="w-full">
-      {/* Barra de Título Minimalista de la Herramienta */}
-      <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200/80 dark:border-zinc-800">
+      {/* Barra de Título Editorial */}
+      <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-neutral-200 dark:border-neutral-800">
         <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-[11px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
-              Studio Suite
-            </span>
-            <span class="text-xs text-zinc-300 dark:text-zinc-700">•</span>
-            <span class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-              Client-Side Local Engine
-            </span>
-          </div>
-          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
-            Generador de QR <span class="font-normal text-zinc-500">by Silantro Labs</span>
+          <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-500 block mb-0.5">
+            Módulo 01 • Motor Local
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-950 dark:text-white">
+            Generador de QR <span class="font-normal text-neutral-500">by Silantro Labs</span>
           </h2>
         </div>
 
-        {/* Badge de Marca con Logotipo */}
-        <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-2xl glass-panel">
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-neutral-200 dark:border-neutral-800 text-xs font-mono text-neutral-600 dark:text-neutral-400 self-start sm:self-auto">
           <img
             src="/logos/logo-con-fondo.jpg"
             alt="Silantro Labs"
-            class="w-6 h-6 rounded-lg object-cover border border-zinc-200 dark:border-zinc-700"
+            class="w-4 h-4 rounded object-cover"
           />
-          <span class="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-            Silantro Labs
-          </span>
+          <span>Silantro Labs</span>
         </div>
       </div>
 
-      {/* Grid Principal de 2 Columnas (Mobile First: primero controles o apilado, luego preview) */}
+      {/* Grid Principal de 2 Columnas */}
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Columna Izquierda: Pestañas y Controles (7 cols en desktop) */}
+        {/* Columna Izquierda: Pestañas y Controles (7 columnas) */}
         <div class="lg:col-span-7 flex flex-col gap-6 order-2 lg:order-1">
           {/* Navegación por Pestañas */}
-          <div class="flex items-center gap-1.5 p-1.5 rounded-2xl glass-panel">
+          <div class="flex items-center border-b border-neutral-200 dark:border-neutral-800">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.id;
               return (
                 <button
                   type="button"
                   onClick={() => setActiveTab(tab.id)}
-                  class={`flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                  class={`py-2 px-3 sm:px-4 text-xs font-mono font-semibold transition-colors flex items-center gap-1.5 border-b-2 -mb-[1px] ${
                     isActive
-                      ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 shadow-sm'
-                      : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100/60 dark:hover:bg-zinc-800/40'
+                      ? 'border-neutral-900 dark:border-neutral-100 text-neutral-950 dark:text-white'
+                      : 'border-transparent text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
                   }`}
                 >
-                  <span class="text-sm">{tab.icon}</span>
-                  <span class="truncate">{tab.label}</span>
+                  <span>{tab.label}</span>
                   {tab.badge && (
-                    <span class="ml-1 text-[10px] px-1.5 py-0.2 rounded-full bg-brand-500 text-white font-bold">
+                    <span class="text-[10px] px-1 py-0.2 rounded border border-neutral-400 dark:border-neutral-600 font-mono">
                       {tab.badge}
                     </span>
                   )}
@@ -128,7 +117,7 @@ export default function QrTool() {
           </div>
 
           {/* Panel Activo */}
-          <div class="glass-panel rounded-3xl p-6 sm:p-7 min-h-[420px] transition-all duration-300">
+          <div class="p-6 rounded border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 min-h-[380px]">
             {activeTab === 'content' && (
               <QrInputPanel state={qrState} onChange={handleUpdate} />
             )}
@@ -141,8 +130,8 @@ export default function QrTool() {
           </div>
         </div>
 
-        {/* Columna Derecha: Vista Previa y Descarga (5 cols en desktop, sticky en scroll) */}
-        <div class="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-24">
+        {/* Columna Derecha: Previsualización y Descarga (5 columnas, sticky en escritorio) */}
+        <div class="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-20">
           <QrPreviewCard state={qrState} onChange={handleUpdate} />
         </div>
       </div>

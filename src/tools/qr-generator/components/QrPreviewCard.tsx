@@ -14,14 +14,13 @@ export default function QrPreviewCard({ state, onChange }: Props) {
   const [copySuccess, setCopySuccess] = useState(false);
   const [renderError, setRenderError] = useState<string | null>(null);
 
-  // Re-renderizar QR cuando cambie el estado
   useEffect(() => {
     let isCancelled = false;
 
     async function render() {
       try {
         setRenderError(null);
-        const options = buildEngineOptions(state, 300);
+        const options = buildEngineOptions(state, 280);
         const engine = await getQrEngine(options);
 
         if (!isCancelled && containerRef.current) {
@@ -31,7 +30,7 @@ export default function QrPreviewCard({ state, onChange }: Props) {
       } catch (err: any) {
         console.error('Error al renderizar QR:', err);
         if (!isCancelled) {
-          setRenderError('No se pudo renderizar el QR. Verifica el formato del contenido.');
+          setRenderError('Error de codificación. Revisa la sintaxis de entrada.');
         }
       }
     }
@@ -48,7 +47,7 @@ export default function QrPreviewCard({ state, onChange }: Props) {
       await downloadQr(state, format);
     } catch (err) {
       console.error('Error al descargar:', err);
-      alert('Hubo un error al generar la descarga.');
+      alert('Error al procesar la exportación del archivo.');
     } finally {
       setIsExporting(false);
     }
@@ -59,7 +58,7 @@ export default function QrPreviewCard({ state, onChange }: Props) {
       if (!containerRef.current) return;
       const canvas = containerRef.current.querySelector('canvas');
       if (!canvas) {
-        alert('Copia no disponible en este modo');
+        alert('Copia directa no soportada en este modo.');
         return;
       }
 
@@ -70,9 +69,9 @@ export default function QrPreviewCard({ state, onChange }: Props) {
             new ClipboardItem({ 'image/png': blob }),
           ]);
           setCopySuccess(true);
-          setTimeout(() => setCopySuccess(false), 2500);
+          setTimeout(() => setCopySuccess(false), 2000);
         } catch {
-          alert('Tu navegador no admite copiar imágenes directamente al portapapeles.');
+          alert('El navegador no permite acceso al portapapeles para blobs.');
         }
       }, 'image/png');
     } catch (e) {
@@ -81,51 +80,41 @@ export default function QrPreviewCard({ state, onChange }: Props) {
   };
 
   return (
-    <div class="glass-panel rounded-3xl p-6 sm:p-7 flex flex-col items-center shadow-lg relative overflow-hidden transition-all duration-300">
-      {/* Etiqueta de Marca / Estado */}
-      <div class="w-full flex items-center justify-between mb-5">
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-xs font-bold tracking-tight text-zinc-800 dark:text-zinc-200">
-            Vista Previa en Vivo
-          </span>
-        </div>
-        <span class="text-[11px] font-mono text-zinc-400 dark:text-zinc-500 uppercase">
+    <div class="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded p-6 flex flex-col items-center">
+      {/* Barra de Estado Monocromática */}
+      <div class="w-full flex items-center justify-between mb-4 pb-3 border-b border-neutral-200 dark:border-neutral-800 font-mono text-xs">
+        <span class="text-neutral-500 uppercase tracking-wider text-[11px]">
+          Previsualización
+        </span>
+        <span class="text-neutral-900 dark:text-neutral-100">
           ECC: {state.errorCorrectionLevel}
         </span>
       </div>
 
-      {/* Contenedor del Canvas QR con marco suave */}
-      <div class="relative w-full max-w-[320px] aspect-square flex items-center justify-center p-3 rounded-2xl bg-white shadow-inner border border-zinc-200/80 dark:border-zinc-800">
+      {/* Contenedor del Canvas con borde técnico sobrio */}
+      <div class="relative w-full max-w-[280px] aspect-square flex items-center justify-center p-2 rounded border border-neutral-200 dark:border-neutral-800 bg-white">
         <div
           ref={containerRef}
-          class="w-full h-full flex items-center justify-center [&>canvas]:max-w-full [&>canvas]:h-auto [&>canvas]:rounded-lg"
+          class="w-full h-full flex items-center justify-center [&>canvas]:max-w-full [&>canvas]:h-auto"
         >
-          {/* Fallback de carga inicial */}
-          <div class="text-xs text-zinc-400 animate-pulse flex items-center gap-2">
-            <svg class="animate-spin w-4 h-4 text-zinc-500" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-            </svg>
-            <span>Generando vista previa...</span>
-          </div>
+          <span class="font-mono text-xs text-neutral-400">
+            Renderizando...
+          </span>
         </div>
 
         {renderError && (
-          <div class="absolute inset-0 bg-red-50/90 dark:bg-zinc-900/95 flex items-center justify-center p-4 text-center text-xs text-red-600 rounded-2xl">
+          <div class="absolute inset-0 bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center p-4 text-center font-mono text-xs text-neutral-900 dark:text-neutral-100">
             {renderError}
           </div>
         )}
       </div>
 
-      {/* Selector de Resolución de Descarga */}
-      <div class="w-full mt-6 pt-5 border-t border-zinc-200/60 dark:border-zinc-800/80">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-semibold text-zinc-600 dark:text-zinc-400">
-            Resolución de Exportación:
-          </span>
-          <span class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-100">
-            {state.downloadSize} × {state.downloadSize} px
+      {/* Selector de Resolución */}
+      <div class="w-full mt-6 pt-4 border-t border-neutral-200 dark:border-neutral-800">
+        <div class="flex items-center justify-between mb-2 font-mono text-xs">
+          <span class="text-neutral-500">Resolución:</span>
+          <span class="text-neutral-900 dark:text-neutral-100 font-semibold">
+            {state.downloadSize}px
           </span>
         </div>
         <div class="grid grid-cols-3 gap-2">
@@ -133,10 +122,10 @@ export default function QrPreviewCard({ state, onChange }: Props) {
             <button
               type="button"
               onClick={() => onChange({ downloadSize: size })}
-              class={`py-1.5 rounded-lg text-xs font-mono transition-all ${
+              class={`py-1 rounded text-xs font-mono border transition-colors ${
                 state.downloadSize === size
-                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900 font-bold shadow-xs'
-                  : 'glass-subtle text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                  ? 'bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 border-neutral-900 dark:border-neutral-100'
+                  : 'bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400'
               }`}
             >
               {size}px
@@ -145,58 +134,41 @@ export default function QrPreviewCard({ state, onChange }: Props) {
         </div>
       </div>
 
-      {/* Botones Principales de Descarga */}
-      <div class="grid grid-cols-2 gap-2.5 w-full mt-4">
+      {/* Botones de Descarga */}
+      <div class="grid grid-cols-2 gap-2 w-full mt-4">
         <button
           type="button"
           disabled={isExporting}
           onClick={() => handleDownload('png')}
-          class="w-full py-3 px-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:hover:bg-zinc-200 text-white dark:text-zinc-950 font-bold text-xs sm:text-sm shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50"
+          class="py-2.5 px-3 rounded bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:hover:bg-neutral-200 text-white dark:text-neutral-950 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
           </svg>
-          <span>Bajar PNG</span>
+          <span>Descargar PNG</span>
         </button>
 
         <button
           type="button"
           disabled={isExporting}
           onClick={() => handleDownload('svg')}
-          class="w-full py-3 px-4 rounded-xl glass-subtle hover:border-zinc-400 dark:hover:border-zinc-500 text-zinc-900 dark:text-white font-bold text-xs sm:text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 border border-zinc-300 dark:border-zinc-700 disabled:opacity-50"
+          class="py-2.5 px-3 rounded border border-neutral-900 dark:border-neutral-100 bg-transparent text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
           </svg>
           <span>Vector SVG</span>
         </button>
       </div>
 
-      {/* Acciones Secundarias (Copiar al portapapeles) */}
+      {/* Copiar Portapapeles */}
       <button
         type="button"
         onClick={handleCopyToClipboard}
-        class="mt-2.5 w-full py-2 px-3 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/40 transition-colors flex items-center justify-center gap-1.5"
+        class="mt-2 w-full py-1.5 px-3 rounded text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors text-center"
       >
-        {copySuccess ? (
-          <>
-            <span class="text-emerald-500 font-bold">✓ Copiado al portapapeles</span>
-          </>
-        ) : (
-          <>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <rect x="8" y="8" width="12" height="12" rx="2" stroke-width="2"></rect>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2"></path>
-            </svg>
-            <span>Copiar imagen rápida (PNG)</span>
-          </>
-        )}
+        {copySuccess ? '[ Copiado al portapapeles ]' : '[ Copiar imagen rápida ]'}
       </button>
-
-      {/* Nota de Privacidad en Cliente */}
-      <p class="text-[10px] text-zinc-400 dark:text-zinc-500 mt-4 text-center leading-tight">
-        Generado en tu navegador • Cero telemetría de contenido
-      </p>
     </div>
   );
 }

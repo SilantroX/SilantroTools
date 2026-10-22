@@ -21,42 +21,39 @@ const { title, description, category, canonicalPath, faqs = [] } = Astro.props;
   isTool={true}
   faqs={faqs}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     <!-- Breadcrumbs -->
-    <nav class="flex items-center gap-2 text-xs text-zinc-400 dark:text-zinc-500 mb-6" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Inicio</a>
+    <nav class="flex items-center gap-2 font-mono text-xs text-neutral-400 dark:text-neutral-500 mb-6" aria-label="Ruta de navegación">
+      <a href="/" class="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">Catálogo</a>
       <span>/</span>
-      <span class="capitalize text-zinc-500 dark:text-zinc-400">{category}</span>
+      <span class="capitalize text-neutral-500 dark:text-neutral-400">{category}</span>
       <span>/</span>
-      <span class="text-zinc-900 dark:text-white font-medium" aria-current="page">{title}</span>
+      <span class="text-neutral-900 dark:text-white font-medium" aria-current="page">{title}</span>
     </nav>
 
-    <!-- Tool Header -->
-    <div class="mb-8">
-      <div class="flex flex-wrap items-center gap-2 mb-3">
-        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700">
+    <!-- Tool Header Editorial -->
+    <div class="border-b border-neutral-200 dark:border-neutral-800 pb-8 mb-8">
+      <div class="flex flex-wrap items-center gap-2 font-mono text-xs mb-3">
+        <span class="px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
           {category}
         </span>
-        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-          </svg>
+        <span class="px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
           100% Client-Side
         </span>
-        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
-          Cero Cómputo en Servidor
+        <span class="px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
+          Zero Egress
         </span>
       </div>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-3">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-neutral-950 dark:text-white mb-3">
         {title}
       </h1>
-      <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-3xl leading-relaxed">
+      <p class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-3xl leading-relaxed">
         {description}
       </p>
     </div>
 
     <!-- Espacio de la Herramienta Interactiva -->
-    <section class="mb-12" aria-label="Área de trabajo de la herramienta">
+    <section class="mb-12" aria-label="Área de ejecución de la herramienta">
       <slot name="tool-workspace" />
     </section>
 
@@ -64,28 +61,30 @@ const { title, description, category, canonicalPath, faqs = [] } = Astro.props;
     <AdSlot slotId="ad-tool-top" format="horizontal-responsive" className="my-10" />
 
     <!-- Guía Técnica Editorial y Contenido de Valor (SEO & AdSense Compliance) -->
-    <article class="prose prose-zinc dark:prose-invert max-w-none border-t border-zinc-200 dark:border-zinc-800 pt-10">
+    <article class="prose prose-neutral dark:prose-invert max-w-none border-t border-neutral-200 dark:border-neutral-800 pt-10 text-neutral-700 dark:text-neutral-300">
       <slot name="editorial-content" />
     </article>
 
     <!-- Sección de Preguntas Frecuentes (FAQ) -->
     {faqs.length > 0 && (
-      <section class="mt-14 border-t border-zinc-200 dark:border-zinc-800 pt-10" aria-label="Preguntas Frecuentes">
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
-          Preguntas Frecuentes Técnicas
-        </h2>
-        <div class="space-y-4 max-w-4xl">
+      <section class="mt-14 border-t border-neutral-200 dark:border-neutral-800 pt-10" aria-label="Preguntas Frecuentes Técnicas">
+        <div class="mb-6">
+          <span class="font-mono text-xs uppercase tracking-wider text-neutral-500">Documentación</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-neutral-950 dark:text-white mt-1">
+            Preguntas Frecuentes
+          </h2>
+        </div>
+
+        <div class="divide-y divide-neutral-200 dark:divide-neutral-800 border-y border-neutral-200 dark:border-neutral-800">
           {faqs.map((faq) => (
-            <details class="group glass-panel rounded-2xl p-5 transition-all duration-300 [&_summary::-webkit-details-marker]:hidden">
-              <summary class="flex items-center justify-between font-semibold text-zinc-900 dark:text-white cursor-pointer select-none">
-                <span class="text-base">{faq.question}</span>
-                <span class="ml-4 flex-shrink-0 text-zinc-400 group-open:rotate-180 transition-transform duration-300">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
+            <details class="group py-4 transition-colors [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex items-center justify-between font-semibold text-neutral-900 dark:text-white cursor-pointer select-none text-sm sm:text-base">
+                <span>{faq.question}</span>
+                <span class="ml-4 font-mono text-xs text-neutral-400 group-open:rotate-45 transition-transform duration-200">
+                  +
                 </span>
               </summary>
-              <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed border-t border-zinc-100 dark:border-zinc-800/80 pt-3">
+              <p class="mt-3 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed pr-6">
                 {faq.answer}
               </p>
             </details>

@@ -3,97 +3,73 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="w-full bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 transition-colors mt-auto">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <!-- Brand & Mission -->
-      <div class="md:col-span-2 space-y-4">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white overflow-hidden">
-            <img
-              src="/logos/logo-con-fondo.jpg"
-              alt="Silantro Labs"
-              class="w-full h-full object-cover"
-              onerror="this.style.display='none'"
-            />
-          </div>
-          <span class="font-bold text-lg text-slate-900 dark:text-white">
-            Silantro<span class="text-brand-600 dark:text-brand-400">Tools</span>
-          </span>
+<footer class="w-full border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400 mt-auto">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 text-xs">
+      <!-- Columna 1: Brand & Filosofía -->
+      <div class="md:col-span-6 space-y-3">
+        <div class="flex items-center gap-2 text-neutral-950 dark:text-white font-semibold text-sm">
+          <img
+            src="/logos/logo-con-fondo.jpg"
+            alt="Silantro Labs"
+            class="w-5 h-5 rounded object-cover border border-neutral-300 dark:border-neutral-700"
+          />
+          <span>Silantro Tools</span>
         </div>
-        <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md leading-relaxed">
-          Plataforma de micro-herramientas gratuitas orientada a la privacidad. Todo el procesamiento (generación, formateo y conversión) se ejecuta 100% en la memoria de tu navegador sin transmitir datos a servidores externos.
+        <p class="max-w-md text-neutral-600 dark:text-neutral-400 leading-relaxed">
+          Conjunto de micro-herramientas de cómputo estático en navegador desarrolladas por Silantro Labs. La lógica de codificación, formateo y renderizado se ejecuta localmente en la memoria del cliente, sin envío de datos a servidores externos.
         </p>
-        <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
-          <span class="inline-flex items-center gap-1">
-            <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-            </svg>
-            Zero Server Egress
-          </span>
-          <span>•</span>
-          <span>Sin registro obligatorio</span>
-          <span>•</span>
-          <span>Código Abierto & Gratuito</span>
-        </div>
+        <p class="font-mono text-[11px] text-neutral-500">
+          Procesamiento: 100% Client-side • Cero persistencia • Sin rastreo de contenido
+        </p>
       </div>
 
-      <!-- Herramientas -->
-      <div>
-        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-4">
+      <!-- Columna 2: Herramientas -->
+      <div class="md:col-span-3 space-y-2">
+        <p class="font-semibold text-neutral-900 dark:text-neutral-200 uppercase tracking-wider text-[11px]">
           Herramientas
-        </h3>
-        <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
+        </p>
+        <ul class="space-y-1.5">
           <li>
-            <a href="/tools/qr-generator/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors flex items-center gap-1.5">
-              Generador de QR
-              <span class="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-brand-100 text-brand-700 dark:bg-brand-950 dark:text-brand-300">Nuevo</span>
+            <a href="/tools/qr-generator/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+              Generador de QR by Silantro Labs
             </a>
           </li>
-          <li>
-            <span class="text-slate-400 dark:text-slate-600 flex items-center justify-between">
-              Formateador JSON
-              <span class="text-[10px] italic">Pronto</span>
-            </span>
+          <li class="text-neutral-400 dark:text-neutral-600 font-mono text-[11px]">
+            [ Formateador JSON - Próximamente ]
           </li>
-          <li>
-            <span class="text-slate-400 dark:text-slate-600 flex items-center justify-between">
-              Generador Base64
-              <span class="text-[10px] italic">Pronto</span>
-            </span>
+          <li class="text-neutral-400 dark:text-neutral-600 font-mono text-[11px]">
+            [ Conversor Base64 - Próximamente ]
           </li>
-          <li>
-            <span class="text-slate-400 dark:text-slate-600 flex items-center justify-between">
-              Contador de Palabras
-              <span class="text-[10px] italic">Pronto</span>
-            </span>
+          <li class="text-neutral-400 dark:text-neutral-600 font-mono text-[11px]">
+            [ Analizador de Texto - Próximamente ]
           </li>
         </ul>
       </div>
 
-      <!-- Legal e Institucional -->
-      <div>
-        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 mb-4">
-          Transparencia y Legal
-        </h3>
-        <ul class="space-y-2.5 text-sm text-slate-600 dark:text-slate-400">
+      <!-- Columna 3: Legal & Institucional -->
+      <div class="md:col-span-3 space-y-2">
+        <p class="font-semibold text-neutral-900 dark:text-neutral-200 uppercase tracking-wider text-[11px]">
+          Institucional
+        </p>
+        <ul class="space-y-1.5">
           <li>
-            <a href="/privacy/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+            <a href="/privacy/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
               Política de Privacidad
             </a>
           </li>
           <li>
-            <a href="/terms/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+            <a href="/terms/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
               Términos de Servicio
             </a>
           </li>
           <li>
-            <a href="/cookies/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+            <a href="/cookies/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
               Política de Cookies
             </a>
           </li>
           <li>
-            <a href="/contact/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+            <a href="/contact/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
               Contacto y Soporte
             </a>
           </li>
@@ -101,14 +77,13 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="border-t border-slate-200 dark:border-slate-800/80 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-4">
-      <p>
+    <div class="border-t border-neutral-200 dark:border-neutral-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-500 gap-3">
+      <span>
         &copy; {currentYear} Silantro Labs. Todos los derechos reservados.
-      </p>
-      <p class="flex items-center gap-1">
-        Alojado globalmente en Cloudflare Pages
-      </p>
+      </span>
+      <span class="font-mono">
+        tools.silantrolabs.com
+      </span>
     </div>
   </div>
 </footer>

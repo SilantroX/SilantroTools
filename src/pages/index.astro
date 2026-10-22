@@ -2,207 +2,211 @@
 // src/pages/index.astro
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
-const availableTools = [
+const toolCatalog = [
   {
+    id: '01',
     title: 'Generador de QR by Silantro Labs',
     slug: 'qr-generator',
-    description: 'Crea códigos QR personalizados en alta resolución con logotipo de Silantro Labs o tu propia marca, colores a medida y descarga inmediata en PNG o SVG. 100% privado en tu navegador.',
-    category: 'Generadores',
-    isAvailable: true,
-    badge: 'Disponible',
-    icon: 'qr',
+    domain: 'Codificación Óptica',
+    inputOutput: 'Texto, URLs o VCard -> SVG / PNG',
+    engine: 'Reed-Solomon (Client Canvas/SVG)',
+    status: 'Disponible',
+    isReady: true,
+    description: 'Generación vectorial y rasterizada de códigos QR en alta resolución. Admite inserción de logo central de Silantro Labs o marcas personalizadas con compensación de error H (30%).',
   },
   {
-    title: 'Formateador y Validador JSON',
+    id: '02',
+    title: 'Formateador e Inspector JSON',
     slug: 'json-formatter',
-    description: 'Valida, embellece y analiza árboles de estructuras JSON complejas sin enviar tus datos o tokens a ningún servidor.',
-    category: 'Formateadores',
-    isAvailable: false,
-    badge: 'Próximamente',
-    icon: 'code',
+    domain: 'Manipulación de Datos',
+    inputOutput: 'JSON plano -> Árbol interactivo ordenado',
+    engine: 'V8 JSON Parser Nativo',
+    status: 'En desarrollo',
+    isReady: false,
+    description: 'Validación de sintaxis, saneamiento de claves y formateo legible de estructuras complejas sin filtrar tokens ni credenciales.',
   },
   {
-    title: 'Conversor Base64 & Archivos',
+    id: '03',
+    title: 'Conversor y Extractor Base64',
     slug: 'base64-converter',
-    description: 'Codifica y decodifica cadenas de texto, imágenes y documentos en Base64 al instante utilizando la API binaria del navegador.',
-    category: 'Conversores',
-    isAvailable: false,
-    badge: 'Próximamente',
-    icon: 'refresh',
+    domain: 'Transformación Binaria',
+    inputOutput: 'Archivos / Texto <-> Base64 URI',
+    engine: 'FileReader & TypedArray API',
+    status: 'En desarrollo',
+    isReady: false,
+    description: 'Codificación y decodificación de datos y archivos binarios directamente en el hilo de trabajo del navegador.',
   },
   {
-    title: 'Generador de Contraseñas Seguras',
+    id: '04',
+    title: 'Generador Criptográfico de Claves',
     slug: 'password-generator',
-    description: 'Genera credenciales criptográficamente seguras con la API Web Crypto nativa de tu dispositivo, sin almacenamiento remoto.',
-    category: 'Seguridad',
-    isAvailable: false,
-    badge: 'Próximamente',
-    icon: 'shield',
+    domain: 'Criptografía',
+    inputOutput: 'Parámetros de entropía -> String seguro',
+    engine: 'Web Crypto API (crypto.getRandomValues)',
+    status: 'En desarrollo',
+    isReady: false,
+    description: 'Generador de contraseñas y claves de paso aleatorias mediante entropía nativa del sistema operativo del usuario.',
   },
   {
-    title: 'Contador y Analizador de Texto',
+    id: '05',
+    title: 'Analizador Semántico de Texto',
     slug: 'word-counter',
-    description: 'Calcula caracteres, palabras, tiempo estimado de lectura y densidad semántica en tiempo real con cero latencia.',
-    category: 'Texto',
-    isAvailable: false,
-    badge: 'Próximamente',
-    icon: 'type',
+    domain: 'Procesamiento de Lenguaje',
+    inputOutput: 'Texto -> Métricas y densidad de lectura',
+    engine: 'Intl.Segmenter & RegExp Engine',
+    status: 'En desarrollo',
+    isReady: false,
+    description: 'Cálculo instantáneo de caracteres, palabras, tiempos de lectura y recurrencia léxica con cero llamadas de red.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Micro-Herramientas Gratuitas y 100% Privadas en el Cliente"
-  description="Colección de herramientas web de alta velocidad para desarrolladores y creadores. Procesamiento exclusivo en el navegador, sin backend y con privacidad total."
+  title="Silantro Tools — Suite de Micro-Herramientas Locales"
+  description="Catálogo de herramientas de utilidad y transformación estática ejecutadas al 100% en el navegador por Silantro Labs. Privacidad absoluta, sin cómputo de servidor."
   canonicalPath="/"
 >
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 bg-gradient-to-b from-brand-50/40 via-transparent to-transparent dark:from-brand-950/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-700 dark:text-brand-400 border border-brand-500/20 mb-6">
-        <span class="w-2 h-2 rounded-full bg-brand-500"></span>
-        Zero Server Egress • 100% Cómputo Local
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <!-- Encabezado Editorial Técnico (Sin clichés ni heroes genéricos) -->
+    <section class="border-b border-neutral-200 dark:border-neutral-800 pb-12 mb-12">
+      <div class="flex items-center gap-2 font-mono text-xs text-neutral-500 uppercase tracking-wider mb-6">
+        <span>Silantro Labs</span>
+        <span>/</span>
+        <span>Utility Infrastructure</span>
+        <span>/</span>
+        <span class="text-neutral-900 dark:text-neutral-100 font-semibold">Local Computing</span>
       </div>
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight max-w-4xl mx-auto">
-        Micro-herramientas potentes, <br class="hidden sm:inline" />
-        <span class="bg-gradient-to-r from-brand-600 to-emerald-500 bg-clip-text text-transparent">
-          privadas e instantáneas.
-        </span>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-950 dark:text-white max-w-4xl leading-[1.15]">
+        Micro-herramientas de cómputo local y ejecución estática.
       </h1>
-      <p class="mt-6 text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-        Todas nuestras herramientas se ejecutan de principio a fin en la memoria de tu dispositivo. Ningún texto, archivo o imagen viaja por la red a servidores de cómputo.
+
+      <p class="mt-6 text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl leading-relaxed">
+        Cada herramienta de este catálogo opera íntegramente en la memoria de tu navegador mediante JavaScript y Web APIs nativas. Tus datos no se transmiten, no se almacenan en servidores y no dejan registros remotos.
       </p>
 
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-        <a
-          href="/tools/qr-generator/"
-          class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-sm shadow-brand-500/25 transition-all hover:scale-[1.02] flex items-center gap-2"
-        >
-          <span>Abrir Generador QR</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-          </svg>
-        </a>
-        <a
-          href="#catalogo"
-          class="px-6 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all"
-        >
-          Explorar Catálogo
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pilares de Confianza -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-y border-slate-200 dark:border-slate-800">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-          </svg>
+      <!-- Fila de Parámetros de Arquitectura -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10 pt-8 border-t border-neutral-200 dark:border-neutral-800 font-mono text-xs">
+        <div>
+          <span class="text-neutral-400 block mb-1">01 / EJECUCIÓN</span>
+          <span class="font-semibold text-neutral-900 dark:text-neutral-100">100% Client-Side</span>
         </div>
         <div>
-          <h2 class="font-bold text-slate-900 dark:text-white text-base mb-1">Privacidad Absoluta</h2>
-          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-            Tus datos nunca tocan un servidor externo. Todo cálculo o renderizado se realiza localmente con JavaScript en tu navegador.
-          </p>
-        </div>
-      </div>
-
-      <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-          </svg>
+          <span class="text-neutral-400 block mb-1">02 / EGRESO DE RED</span>
+          <span class="font-semibold text-neutral-900 dark:text-neutral-100">0 bytes (Zero Egress)</span>
         </div>
         <div>
-          <h2 class="font-bold text-slate-900 dark:text-white text-base mb-1">Velocidad Instantánea</h2>
-          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-            Sin latencia de red ni colas de espera en backend. Las microherramientas responden a la velocidad de la CPU de tu propio equipo.
-          </p>
-        </div>
-      </div>
-
-      <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center flex-shrink-0">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
+          <span class="text-neutral-400 block mb-1">03 / LATENCIA</span>
+          <span class="font-semibold text-neutral-900 dark:text-neutral-100">&lt; 5ms en memoria</span>
         </div>
         <div>
-          <h2 class="font-bold text-slate-900 dark:text-white text-base mb-1">100% Gratis y Sin Registro</h2>
-          <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-            Acceso libre sin límites de uso, sin muros de pago y sin necesidad de crear cuentas de usuario.
-          </p>
+          <span class="text-neutral-400 block mb-1">04 / DISPONIBILIDAD</span>
+          <span class="font-semibold text-neutral-900 dark:text-neutral-100">Libre y sin registro</span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Catálogo de Herramientas -->
-  <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
-      <div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Directorio de Micro-Herramientas
+    <!-- Catálogo de Herramientas Estructurado -->
+    <section aria-labelledby="catalogo-heading">
+      <div class="flex items-baseline justify-between mb-6 pb-2 border-b border-neutral-200 dark:border-neutral-800">
+        <h2 id="catalogo-heading" class="font-mono text-xs uppercase tracking-wider text-neutral-500">
+          Directorio de Utilidades
         </h2>
-        <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-          Soluciones de un solo clic optimizadas para flujo de trabajo diario.
-        </p>
+        <span class="font-mono text-xs text-neutral-400">
+          Total: {toolCatalog.length} módulos
+        </span>
       </div>
-    </div>
 
-    <!-- Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {availableTools.map((tool) => (
-        <div class={`relative group rounded-2xl border transition-all duration-200 p-6 flex flex-col justify-between ${
-          tool.isAvailable
-            ? 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-brand-500/50 hover:shadow-lg hover:shadow-brand-500/5'
-            : 'bg-slate-50/50 dark:bg-slate-900/30 border-dashed border-slate-200 dark:border-slate-800/80 opacity-75'
-        }`}>
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                {tool.category}
-              </span>
-              <span class={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-                tool.isAvailable
-                  ? 'bg-brand-100 text-brand-700 dark:bg-brand-950 dark:text-brand-300'
-                  : 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
-              }`}>
-                {tool.badge}
-              </span>
+      <!-- Lista Técnica de Módulos -->
+      <div class="divide-y divide-neutral-200 dark:divide-neutral-800 border-b border-neutral-200 dark:border-neutral-800">
+        {toolCatalog.map((tool) => (
+          <article class={`py-6 transition-colors ${tool.isReady ? 'hover:bg-neutral-50/60 dark:hover:bg-neutral-900/30' : 'opacity-70'}`}>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+              <!-- Índice y Dominio -->
+              <div class="md:col-span-2 font-mono text-xs flex md:flex-col justify-between md:justify-start gap-1 text-neutral-500">
+                <span class="font-semibold text-neutral-900 dark:text-neutral-100">{tool.id}</span>
+                <span class="text-neutral-400">{tool.domain}</span>
+              </div>
+
+              <!-- Título y Descripción -->
+              <div class="md:col-span-6 space-y-1.5">
+                <h3 class="text-base font-semibold text-neutral-950 dark:text-white">
+                  {tool.isReady ? (
+                    <a href={`/tools/${tool.slug}/`} class="hover:underline underline-offset-4 decoration-neutral-400">
+                      {tool.title}
+                    </a>
+                  ) : (
+                    <span>{tool.title}</span>
+                  )}
+                </h3>
+                <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+                  {tool.description}
+                </p>
+                <div class="font-mono text-[11px] text-neutral-500 pt-1">
+                  <span class="text-neutral-400">E/S:</span> {tool.inputOutput}
+                </div>
+              </div>
+
+              <!-- Motor / Algoritmo -->
+              <div class="md:col-span-2 hidden md:block font-mono text-[11px] text-neutral-500">
+                <span class="text-neutral-400 block text-[10px] uppercase">Motor</span>
+                <span>{tool.engine}</span>
+              </div>
+
+              <!-- Acción y Estado -->
+              <div class="md:col-span-2 flex md:justify-end items-center">
+                {tool.isReady ? (
+                  <a
+                    href={`/tools/${tool.slug}/`}
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-neutral-900 dark:border-neutral-100 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-950 text-xs font-semibold hover:opacity-90 transition-opacity"
+                  >
+                    <span>Ejecutar</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </a>
+                ) : (
+                  <span class="font-mono text-[11px] text-neutral-400 border border-neutral-200 dark:border-neutral-800 px-2.5 py-1 rounded">
+                    En desarrollo
+                  </span>
+                )}
+              </div>
             </div>
+          </article>
+        ))}
+      </div>
+    </section>
 
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
-              {tool.title}
-            </h3>
-
-            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              {tool.description}
-            </p>
-          </div>
-
-          <div>
-            {tool.isAvailable ? (
-              <a
-                href={`/tools/${tool.slug}/`}
-                class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
-              >
-                Abrir herramienta
-                <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </a>
-            ) : (
-              <span class="text-xs font-medium text-slate-400 dark:text-slate-600 italic">
-                En fase de desarrollo
-              </span>
-            )}
-          </div>
+    <!-- Manifiesto Técnico de Privacidad Arquitectónica -->
+    <section class="mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-semibold text-sm text-neutral-900 dark:text-white mb-2">
+            Aislamiento de Cómputo
+          </h3>
+          <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            Ninguna herramienta envía peticiones POST o PUT con los datos ingresados. Los hilos de renderizado y análisis residen en los Web Workers o en el contexto 2D del Canvas local.
+          </p>
         </div>
-      ))}
-    </div>
-  </section>
+
+        <div>
+          <h3 class="font-semibold text-sm text-neutral-900 dark:text-white mb-2">
+            Arquitectura de Islas Estáticas
+          </h3>
+          <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            El framework base compila únicamente a HTML y CSS puros. Cada herramienta descarga sus librerías específicas de manera aislada (*lazy loading*) solo cuando el usuario accede a ella.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-sm text-neutral-900 dark:text-white mb-2">
+            Infraestructura Distribuida
+          </h3>
+          <p class="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            Servido globalmente mediante la red Anycast de Cloudflare Pages con caché inmutable y cifrado SSL/TLS de grado estricto.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
 </BaseLayout>

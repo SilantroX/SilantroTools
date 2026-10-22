@@ -11,18 +11,16 @@ const SILANTRO_LOGO_PATH = '/logos/logo-con-fondo.jpg';
 export default function QrLogoPanel({ state, onChange }: Props) {
   const handleToggleSilantroLogo = () => {
     if (state.isBrandLogoActive) {
-      // Desactivar
       onChange({
         logoUrl: undefined,
         isBrandLogoActive: false,
         errorCorrectionLevel: 'Q',
       });
     } else {
-      // Activar logo Silantro Labs
       onChange({
         logoUrl: SILANTRO_LOGO_PATH,
         isBrandLogoActive: true,
-        errorCorrectionLevel: 'H', // Obligatorio 'H' para tolerar el logotipo
+        errorCorrectionLevel: 'H',
       });
     }
   };
@@ -53,134 +51,113 @@ export default function QrLogoPanel({ state, onChange }: Props) {
 
   return (
     <div class="space-y-6">
-      {/* Botón de Marca: Silantro Labs Oficial */}
+      {/* Botón de Marca: Silantro Labs */}
       <div>
-        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2.5">
-          Incrustación de Marca Rápida
+        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2.5">
+          03.1 / Insignia Oficial Silantro Labs
         </label>
         <button
           type="button"
           onClick={handleToggleSilantroLogo}
-          class={`w-full p-4 rounded-2xl border text-left transition-all duration-300 flex items-center justify-between group ${
+          class={`w-full p-3.5 rounded border text-left transition-colors flex items-center justify-between ${
             state.isBrandLogoActive
-              ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 border-zinc-900 dark:border-white shadow-md'
-              : 'glass-panel hover:border-zinc-400 dark:hover:border-zinc-600'
+              ? 'bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-950 border-neutral-900 dark:border-neutral-100'
+              : 'bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600'
           }`}
         >
-          <div class="flex items-center gap-3.5">
-            <div class="w-11 h-11 rounded-xl bg-white p-1 border border-zinc-200 dark:border-zinc-700 shadow-sm flex items-center justify-center overflow-hidden flex-shrink-0">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded border border-neutral-300 dark:border-neutral-700 overflow-hidden flex items-center justify-center bg-white flex-shrink-0">
               <img
                 src={SILANTRO_LOGO_PATH}
-                alt="Silantro Labs"
-                class="w-full h-full object-cover rounded-lg"
+                alt="Silantro Labs Logo"
+                class="w-full h-full object-cover"
               />
             </div>
             <div>
               <div class="flex items-center gap-2">
-                <span class="font-bold text-sm">Logo Oficial Silantro Labs</span>
-                <span class={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                <span class="font-semibold text-xs tracking-tight">Logo Silantro Labs</span>
+                <span class={`font-mono text-[10px] uppercase px-1.5 py-0.2 rounded border ${
                   state.isBrandLogoActive
-                    ? 'bg-brand-500 text-white'
-                    : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
+                    ? 'border-white/30 text-white dark:border-black/30 dark:text-black'
+                    : 'border-neutral-300 dark:border-neutral-700 text-neutral-500'
                 }`}>
-                  {state.isBrandLogoActive ? 'Activo' : 'Un Clic'}
+                  {state.isBrandLogoActive ? 'Incrustado' : 'Click para activar'}
                 </span>
               </div>
-              <p class={`text-xs mt-0.5 ${state.isBrandLogoActive ? 'text-zinc-300 dark:text-zinc-600' : 'text-zinc-500 dark:text-zinc-400'}`}>
-                Aplica la insignia de Silantro en el centro del código QR
+              <p class={`text-[11px] mt-0.5 ${state.isBrandLogoActive ? 'text-neutral-300 dark:text-neutral-600' : 'text-neutral-500'}`}>
+                Incrusta la marca en el centro del código QR
               </p>
             </div>
           </div>
-          <div class="flex-shrink-0 ml-3">
-            <span class={`inline-flex items-center justify-center w-6 h-6 rounded-full border text-xs font-bold ${
-              state.isBrandLogoActive
-                ? 'bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white border-transparent'
-                : 'border-zinc-300 dark:border-zinc-600 text-transparent'
-            }`}>
-              ✓
-            </span>
-          </div>
+          <span class="font-mono text-xs">
+            {state.isBrandLogoActive ? '[ ON ]' : '[ OFF ]'}
+          </span>
         </button>
       </div>
 
-      {/* Subir Logo Personalizado */}
+      {/* Carga de Logo Propio */}
       <div>
-        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2.5">
-          O sube tu propio icono / imagen
+        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2.5">
+          03.2 / Carga de Marca Personal o Corporativa
         </label>
-        <div class="glass-subtle p-5 rounded-2xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 text-center hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors">
+        <div class="p-6 rounded border border-dashed border-neutral-300 dark:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-900/30 text-center hover:border-neutral-500 transition-colors">
           <input
-            id="custom-logo-input"
+            id="custom-logo-file"
             type="file"
             accept="image/png, image/jpeg, image/svg+xml, image/webp"
             class="hidden"
             onChange={handleCustomFileUpload}
           />
-          <label
-            for="custom-logo-input"
-            class="cursor-pointer flex flex-col items-center justify-center gap-2"
-          >
-            <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 flex items-center justify-center">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <div>
-              <span class="text-xs font-semibold text-zinc-900 dark:text-zinc-100 underline decoration-zinc-400">
-                Seleccionar archivo local
-              </span>
-              <span class="text-xs text-zinc-500 dark:text-zinc-400"> o arrastra aquí</span>
-            </div>
-            <p class="text-[11px] text-zinc-400 dark:text-zinc-500">
-              Formatos admitidos: PNG, JPG, SVG o WEBP (máx. 2 MB)
+          <label for="custom-logo-file" class="cursor-pointer block">
+            <span class="text-xs font-semibold text-neutral-900 dark:text-neutral-100 underline underline-offset-2">
+              Seleccionar archivo de imagen local
+            </span>
+            <p class="font-mono text-[11px] text-neutral-400 mt-1">
+              Formatos: PNG, JPG, SVG o WEBP (procesado exclusivamente en memoria)
             </p>
           </label>
         </div>
       </div>
 
-      {/* Si hay logo activo, controles de tamaño y eliminación */}
+      {/* Controles de Escala si hay Logo */}
       {state.logoUrl && (
-        <div class="glass-subtle p-4 rounded-2xl space-y-4">
+        <div class="p-4 rounded border border-neutral-200 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-900/40 space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
-              Ajuste de Logo Centrado
+            <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-500">
+              Escala de Logo Centrado
             </span>
             <button
               type="button"
               onClick={handleRemoveLogo}
-              class="text-xs font-medium text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+              class="font-mono text-xs text-neutral-500 hover:text-neutral-950 dark:hover:text-white underline"
             >
-              Quitar logo
+              [ Remover logo ]
             </button>
           </div>
 
           <div>
-            <div class="flex items-center justify-between text-xs mb-1.5">
-              <span class="text-zinc-600 dark:text-zinc-400">Escala del Logo:</span>
-              <span class="font-mono text-zinc-500">{Math.round(state.logoSize * 100)}%</span>
+            <div class="flex items-center justify-between text-xs mb-1.5 font-mono">
+              <span class="text-neutral-500">Proporción:</span>
+              <span class="text-neutral-900 dark:text-neutral-100">{Math.round(state.logoSize * 100)}%</span>
             </div>
             <input
               type="range"
               min="0.15"
-              max="0.38"
+              max="0.36"
               step="0.02"
               value={state.logoSize}
               onInput={(e) => onChange({ logoSize: Number((e.target as HTMLInputElement).value) })}
-              class="w-full h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-zinc-900 dark:accent-zinc-100"
+              class="w-full h-1 bg-neutral-200 dark:bg-neutral-800 rounded appearance-none cursor-pointer accent-neutral-900 dark:accent-neutral-100"
             />
-            <p class="text-[10px] text-zinc-400 mt-1">
-              Máximo 38% para evitar obstruir los patrones críticos de lectura óptica.
-            </p>
           </div>
 
-          <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-800 dark:text-amber-300 text-xs flex items-start gap-2">
-            <span class="text-base leading-none">🛡️</span>
-            <div>
-              <span class="font-bold">Corrección de Error Reed-Solomon H (30%) activada:</span>
-              <p class="text-[11px] opacity-90 mt-0.5">
-                Garantiza que el código continúe siendo 100% escaneable incluso con la obstrucción central del logotipo.
-              </p>
-            </div>
+          <div class="p-3 rounded border border-neutral-200 dark:border-neutral-800 font-mono text-[11px] text-neutral-600 dark:text-neutral-400 space-y-1">
+            <span class="font-semibold text-neutral-900 dark:text-neutral-100 block">
+              Reed-Solomon Nivel H (30%) Activo
+            </span>
+            <p>
+              El código reserva un 30% de redundancia matemática para evitar pérdida de legibilidad óptica con el logotipo superpuesto.
+            </p>
           </div>
         </div>
       )}
