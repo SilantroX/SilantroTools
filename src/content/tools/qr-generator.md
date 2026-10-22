@@ -1,6 +1,6 @@
 ---
-title: "Generador de Códigos QR"
-description: "Crea códigos QR personalizados en alta resolución con logotipo, colores a medida y descarga inmediata en PNG o SVG. 100% privado en tu navegador."
+title: "Generador de Códigos QR by Silantro Labs"
+description: "Crea códigos QR personalizados en alta resolución con el logo oficial de Silantro Labs o tu propia marca, colores minimalistas y descarga inmediata en PNG o SVG. 100% privado en tu navegador."
 category: "generadores"
 badge: "Disponible"
 isNew: true
@@ -9,7 +9,7 @@ faqs:
   - question: "¿Por qué este generador QR es más seguro y privado que otros servicios en línea?"
     answer: "A diferencia de la mayoría de los generadores web que envían tus textos, URLs o credenciales Wi-Fi a un servidor remoto donde pueden quedar almacenados en logs de acceso o bases de datos, Silantro Tools genera el código QR directamente en la memoria RAM de tu navegador web mediante la API Canvas y algoritmos criptográficos locales. Ningún byte viaja por la red."
   - question: "¿Qué nivel de corrección de errores (ECC) debo elegir si agrego un logotipo?"
-    answer: "Si vas a incrustar un logotipo o icono en el centro del código QR, es estrictamente necesario seleccionar el nivel 'H' (High, 30%) o 'Q' (Quartile, 25%). Esto garantiza que hasta un 30% del código pueda quedar cubierto u oscurecido por la imagen sin perder la capacidad de ser leído con precisión por cualquier cámara de smartphone."
+    answer: "Si vas a incrustar un logotipo o icono en el centro del código QR (como el logo oficial de Silantro Labs), es estrictamente necesario seleccionar el nivel 'H' (High, 30%) o 'Q' (Quartile, 25%). Nuestra herramienta lo ajusta automáticamente para garantizar que hasta un 30% del código pueda quedar cubierto por la imagen sin perder la capacidad de ser leído con precisión por cualquier cámara de smartphone."
   - question: "¿Cuál es la diferencia entre exportar en formato PNG y SVG?"
     answer: "El formato PNG es una imagen rasterizada de mapa de bits óptima para compartir por mensajería, redes sociales, correos electrónicos o páginas web. Por otro lado, el formato SVG es un archivo vectorial matemático que puede ampliarse a cualquier tamaño (vallas publicitarias, pendones, empaques) sin perder nitidez ni pixelarse jamás."
 ---
