@@ -1,0 +1,49 @@
+---
+// src/pages/about.astro
+import LegalLayout from '@/layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="Acerca de Silantro Labs & Silantro Tools"
+  description="Filosofía de ingeniería, principios de arquitectura sin egreso de datos y manifiesto de privacidad de Silantro Tools."
+>
+  <h2>1. Manifiesto y Propósito</h2>
+  <p>
+    <strong>Silantro Tools</strong> es una iniciativa de ingeniería de software desarrollada por <strong>Silantro Labs</strong> con una premisa innegociable: el software de utilidad moderna debe respetar la soberanía de los datos del usuario.
+  </p>
+  <p>
+    En la web contemporánea, las tareas más elementales (como generar un código QR, formatear un objeto JSON o codificar una cadena en Base64) suelen delegarse a servicios remotos que transmiten la información del usuario a través de servidores externos. Esta práctica expone innecesariamente secretos de API, credenciales corporativas, identificadores de red y enlaces privados a registros de acceso (<em>access logs</em>), bases de datos intermedias y posibles brechas de seguridad.
+  </p>
+  <p>
+    Nuestra plataforma demuestra que los navegadores actuales poseen la capacidad computacional para ejecutar el 100% de estas transformaciones de forma autónoma, segura y sin latencia de red.
+  </p>
+
+  <h2>2. Principios de Arquitectura Técnica (Zero Server Egress)</h2>
+  <p>
+    Toda herramienta alojada bajo el subdominio <code>tools.silantrolabs.com</code> se rige por tres estándares fundamentales:
+  </p>
+  <ul>
+    <li>
+      <strong>Cómputo Exclusivo en Memoria Local:</strong> La lógica algorítmica se ejecuta en el motor JavaScript del navegador del cliente (V8, JavaScriptCore o SpiderMonkey) empleando Web APIs estandarizadas por el W3C (Canvas 2D API, Web Crypto API y TypedArrays).
+    </li>
+    <li>
+      <strong>Cero Egreso de Datos (Zero Egress):</strong> Ningún byte introducido en los formularios o procesado en los lienzos viaja a servidores de Silantro Labs ni a terceros mediante peticiones <code>POST</code>, <code>PUT</code> o WebSockets.
+    </li>
+    <li>
+      <strong>Desacoplamiento Estático:</strong> La infraestructura se distribuye como archivos HTML, CSS y JavaScript precompilados mediante arquitectura de islas (SSG), asegurando una entrega global con latencia mínima y cero dependencias de bases de datos centralizadas.
+    </li>
+  </ul>
+
+  <h2>3. Entidad Responsable y Laboratorio de Software</h2>
+  <p>
+    Silantro Labs es un laboratorio dedicado al diseño de sistemas web eficientes, herramientas para desarrolladores y arquitecturas digitales orientadas al rendimiento y la sobriedad técnica.
+  </p>
+  <p>
+    Nuestras herramientas se ofrecen de forma libre y gratuita, financiadas de forma sostenible y no invasiva mediante espacios publicitarios con dimensiones reservadas para garantizar una navegación sin alteraciones visuales (<em>Cumulative Layout Shift = 0</em>).
+  </p>
+
+  <h2>4. Contacto y Colaboración Técnica</h2>
+  <p>
+    Si representas a una organización interesada en auditorías de privacidad, integraciones específicas o deseas reportar una observación técnica sobre nuestros algoritmos, puedes comunicarte directamente con nuestro equipo de desarrollo a través de <a href="mailto:contacto@silantrolabs.com">contacto@silantrolabs.com</a> o consultar nuestro portal principal en <a href="https://silantrolabs.com" target="_blank" rel="noopener noreferrer">silantrolabs.com</a>.
+  </p>
+</LegalLayout>
