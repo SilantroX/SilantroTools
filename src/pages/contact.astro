@@ -5,22 +5,22 @@ import LegalLayout from '@/layouts/LegalLayout.astro';
 
 <LegalLayout
   title="Contacto y Soporte Técnico"
-  description="Ponte en contacto con el equipo de ingeniería de Silantro Labs."
+  description="Canal directo de comunicación con el equipo de ingeniería y arquitectura de Silantro Labs."
 >
   <p>
-    En <strong>Silantro Labs</strong> valoramos los reportes de anomalías de renderizado, sugerencias de nuevas micro-herramientas y retroalimentación técnica sobre nuestras utilidades.
+    En <strong>Silantro Labs</strong> valoramos la retroalimentación técnica, reportes de anomalías de renderizado óptico en dispositivos específicos y propuestas de nuevas micro-herramientas de cómputo local.
   </p>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8 not-prose">
-    <div class="p-5 rounded border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-      <div class="w-8 h-8 rounded border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 flex items-center justify-center mb-3">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+    <div class="surface-card p-6">
+      <div class="w-8 h-8 rounded-md border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 flex items-center justify-center mb-3.5 bg-neutral-50 dark:bg-neutral-900">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
         </svg>
       </div>
-      <h3 class="text-sm font-semibold text-neutral-900 dark:text-white mb-1">Correo Electrónico</h3>
-      <p class="text-xs text-neutral-500 mb-3">
-        Consultas generales y reportes de seguridad.
+      <h3 class="text-sm font-semibold text-neutral-900 dark:text-white mb-1">Correo Electrónico Directo</h3>
+      <p class="text-xs text-neutral-500 mb-3.5 leading-relaxed">
+        Consultas técnicas, reportes de vulnerabilidades y solicitudes de colaboración.
       </p>
       <a
         href="mailto:contacto@silantrolabs.com"
@@ -30,15 +30,15 @@ import LegalLayout from '@/layouts/LegalLayout.astro';
       </a>
     </div>
 
-    <div class="p-5 rounded border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-      <div class="w-8 h-8 rounded border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 flex items-center justify-center mb-3">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+    <div class="surface-card p-6">
+      <div class="w-8 h-8 rounded-md border border-neutral-300 dark:border-neutral-700 text-neutral-800 dark:text-neutral-200 flex items-center justify-center mb-3.5 bg-neutral-50 dark:bg-neutral-900">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253" />
         </svg>
       </div>
-      <h3 class="text-sm font-semibold text-neutral-900 dark:text-white mb-1">Sitio Corporativo</h3>
-      <p class="text-xs text-neutral-500 mb-3">
-        Silantro Labs • Ingeniería de Software
+      <h3 class="text-sm font-semibold text-neutral-900 dark:text-white mb-1">Portal Central</h3>
+      <p class="text-xs text-neutral-500 mb-3.5 leading-relaxed">
+        Silantro Labs • Iniciativas de Software y Laboratorio de Ingeniería.
       </p>
       <a
         href="https://silantrolabs.com"
@@ -46,13 +46,18 @@ import LegalLayout from '@/layouts/LegalLayout.astro';
         rel="noopener noreferrer"
         class="text-xs font-mono font-semibold text-neutral-900 dark:text-neutral-100 hover:underline"
       >
-        silantrolabs.com
+        silantrolabs.com ↗
       </a>
     </div>
   </div>
 
-  <h2>Reporte de Errores</h2>
+  <h2>Reporte de Errores Ópticos o de Codificación</h2>
   <p>
-    Para reportar cualquier error en el renderizado de códigos QR, por favor especifica el lector o dispositivo utilizado, la cadena o datos de entrada y los parámetros de formato.
+    Para reportar cualquier inconsistencia en la decodificación de códigos QR o en futuras utilidades, por favor especifica:
   </p>
+  <ul>
+    <li>Dispositivo y sistema operativo utilizado (p. ej. iOS 18 en iPhone 15 o Android 15 en Pixel 8).</li>
+    <li>Aplicación lectora empleada (Cámara nativa, Google Lens, escáner industrial).</li>
+    <li>Cadena o parámetros ingresados (sin incluir datos privados o confidenciales).</li>
+  </ul>
 </LegalLayout>

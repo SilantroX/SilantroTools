@@ -3,78 +3,95 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="w-full border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400 mt-auto">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<footer class="w-full border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50/70 dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400 mt-auto transition-colors">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-12">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 text-xs">
       <!-- Columna 1: Brand & Filosofía -->
       <div class="md:col-span-6 space-y-3">
-        <div class="flex items-center gap-2 text-neutral-950 dark:text-white font-semibold text-sm">
-          <img
-            src="/logos/logo-con-fondo.jpg"
-            alt="Silantro Labs"
-            class="w-5 h-5 rounded object-cover border border-neutral-300 dark:border-neutral-700"
-          />
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-neutral-950 dark:text-white font-semibold text-sm group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded p-0.5"
+        >
+          <div class="w-5 h-5 rounded overflow-hidden border border-neutral-300 dark:border-neutral-700 bg-white flex-shrink-0">
+            <img
+              src="/logos/logo-icon.webp"
+              alt="Silantro Labs"
+              width="20"
+              height="20"
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover"
+            />
+          </div>
           <span>Silantro Tools</span>
+        </a>
+        <p class="max-w-md text-neutral-600 dark:text-neutral-400 leading-relaxed text-xs">
+          Suite de micro-herramientas estáticas desarrolladas por Silantro Labs. Cada algoritmo opera en la memoria volátil de tu navegador, garantizando privacidad absoluta y cero llamadas a servidores externos.
+        </p>
+        <div class="inline-flex items-center gap-2 font-mono text-[11px] text-neutral-500 pt-0.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-neutral-400 dark:bg-neutral-600"></span>
+          <span>100% Client-Side • Cero persistencia • Sin rastreo</span>
         </div>
-        <p class="max-w-md text-neutral-600 dark:text-neutral-400 leading-relaxed">
-          Conjunto de micro-herramientas de cómputo estático en navegador desarrolladas por Silantro Labs. La lógica de codificación, formateo y renderizado se ejecuta localmente en la memoria del cliente, sin envío de datos a servidores externos.
-        </p>
-        <p class="font-mono text-[11px] text-neutral-500">
-          Procesamiento: 100% Client-side • Cero persistencia • Sin rastreo de contenido
-        </p>
       </div>
 
       <!-- Columna 2: Herramientas -->
-      <div class="md:col-span-3 space-y-2">
-        <p class="font-semibold text-neutral-900 dark:text-neutral-200 uppercase tracking-wider text-[11px]">
+      <div class="md:col-span-3 space-y-2.5">
+        <p class="font-mono text-[11px] font-semibold text-neutral-900 dark:text-neutral-200 uppercase tracking-wider">
           Herramientas
         </p>
         <ul class="space-y-1.5">
           <li>
-            <a href="/tools/qr-generator/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
-              Generador de QR by Silantro Labs
+            <a
+              href="/tools/qr-generator/"
+              class="text-neutral-900 dark:text-neutral-200 hover:underline underline-offset-4 decoration-neutral-400 transition-colors font-medium flex items-center justify-between group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded"
+            >
+              <span>Generador de QR</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.2 rounded border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300">Activo</span>
             </a>
           </li>
           <li class="text-neutral-400 dark:text-neutral-600 font-mono text-[11px]">
-            [ Formateador JSON - Próximamente ]
+            [ Compresor de Fotos — Próximamente ]
           </li>
           <li class="text-neutral-400 dark:text-neutral-600 font-mono text-[11px]">
-            [ Conversor Base64 - Próximamente ]
+            [ Limpiador de Texto / PDF — Próximamente ]
           </li>
           <li class="text-neutral-400 dark:text-neutral-600 font-mono text-[11px]">
-            [ Analizador de Texto - Próximamente ]
+            [ Generador de Contraseñas — Próximamente ]
+          </li>
+          <li class="text-neutral-400 dark:text-neutral-600 font-mono text-[11px]">
+            [ Comparador de Textos — Próximamente ]
           </li>
         </ul>
       </div>
 
-      <!-- Columna 3: Legal & Institucional -->
-      <div class="md:col-span-3 space-y-2">
-        <p class="font-semibold text-neutral-900 dark:text-neutral-200 uppercase tracking-wider text-[11px]">
-          Institucional
+      <!-- Columna 3: Institucional -->
+      <div class="md:col-span-3 space-y-2.5">
+        <p class="font-mono text-[11px] font-semibold text-neutral-900 dark:text-neutral-200 uppercase tracking-wider">
+          Institucional & Legal
         </p>
         <ul class="space-y-1.5">
           <li>
-            <a href="/about/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+            <a href="/about/" class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded">
               Acerca de Silantro Labs
             </a>
           </li>
           <li>
-            <a href="/privacy/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+            <a href="/privacy/" class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded">
               Política de Privacidad
             </a>
           </li>
           <li>
-            <a href="/terms/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+            <a href="/terms/" class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded">
               Términos de Servicio
             </a>
           </li>
           <li>
-            <a href="/cookies/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+            <a href="/cookies/" class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded">
               Política de Cookies
             </a>
           </li>
           <li>
-            <a href="/contact/" class="hover:text-neutral-950 dark:hover:text-white transition-colors">
+            <a href="/contact/" class="hover:text-neutral-950 dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded">
               Contacto y Soporte
             </a>
           </li>
@@ -82,11 +99,11 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="border-t border-neutral-200 dark:border-neutral-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-500 gap-3">
+    <div class="border-t border-neutral-200 dark:border-neutral-800 mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-500 gap-2">
       <span>
-        &copy; {currentYear} Silantro Labs. Todos los derechos reservados.
+        &copy; {currentYear} Silantro Labs. Software de utilidad pública y cómputo local.
       </span>
-      <span class="font-mono">
+      <span class="font-mono text-[11px] text-neutral-400 dark:text-neutral-600">
         tools.silantrolabs.com
       </span>
     </div>

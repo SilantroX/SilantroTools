@@ -8,44 +8,49 @@ import QrPreviewCard from './components/QrPreviewCard';
 
 type TabId = 'content' | 'style' | 'logo';
 
+const DEFAULT_STATE: QrOptionsState = {
+  contentType: 'url',
+  rawText: 'https://silantrolabs.com',
+  wifi: {
+    ssid: '',
+    password: '',
+    encryption: 'WPA',
+    hidden: false,
+  },
+  vcard: {
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    organization: 'Silantro Labs',
+    url: 'https://silantrolabs.com',
+  },
+  emailAddress: '',
+  emailSubject: '',
+  emailBody: '',
+
+  dotsType: 'rounded',
+  cornersSquareType: 'extra-rounded',
+  cornersDotType: 'dot',
+
+  dotsColor: '#09090b',
+  bgColor: '#ffffff',
+  cornersSquareColor: '#09090b',
+  cornersDotColor: '#09090b',
+
+  logoUrl: undefined,
+  isBrandLogoActive: false,
+  logoSize: 0.26,
+  margin: 10,
+  errorCorrectionLevel: 'Q',
+
+  downloadSize: 1024,
+  downloadFormat: 'png',
+};
+
 export default function QrTool() {
   const [activeTab, setActiveTab] = useState<TabId>('content');
-  const [qrState, setQrState] = useState<QrOptionsState>({
-    contentType: 'url',
-    rawText: 'https://silantrolabs.com',
-    wifi: {
-      ssid: '',
-      password: '',
-      encryption: 'WPA',
-    },
-    vcard: {
-      firstName: '',
-      lastName: '',
-      phone: '',
-      email: '',
-      organization: 'Silantro Labs',
-    },
-    emailAddress: '',
-    emailSubject: '',
-
-    dotsType: 'rounded',
-    cornersSquareType: 'extra-rounded',
-    cornersDotType: 'dot',
-
-    dotsColor: '#0a0a0a',
-    bgColor: '#ffffff',
-    cornersSquareColor: '#0a0a0a',
-    cornersDotColor: '#0a0a0a',
-
-    logoUrl: undefined,
-    isBrandLogoActive: false,
-    logoSize: 0.28,
-    margin: 10,
-    errorCorrectionLevel: 'Q',
-
-    downloadSize: 1024,
-    downloadFormat: 'png',
-  });
+  const [qrState, setQrState] = useState<QrOptionsState>(DEFAULT_STATE);
 
   const handleUpdate = (updates: Partial<QrOptionsState>) => {
     setQrState((prev) => ({
@@ -54,70 +59,71 @@ export default function QrTool() {
     }));
   };
 
-  const tabs: Array<{ id: TabId; label: string; badge?: string }> = [
-    { id: 'content', label: '01 / Contenido' },
-    { id: 'style', label: '02 / Geometría & Color' },
+  const handleReset = () => {
+    if (confirm('¿Deseas restablecer los parámetros del código QR a sus valores predeterminados?')) {
+      setQrState(DEFAULT_STATE);
+    }
+  };
+
+  const tabs: Array<{ id: TabId; num: string; label: string; tag?: string }> = [
+    { id: 'content', num: '01', label: 'Contenido' },
+    { id: 'style', num: '02', label: 'Estilo' },
     {
       id: 'logo',
-      label: '03 / Marca & Logo',
-      badge: qrState.logoUrl ? 'Activo' : undefined,
+      num: '03',
+      label: 'Logo',
+      tag: qrState.logoUrl ? 'Activo' : undefined,
     },
   ];
 
   return (
-    <div class="w-full">
-      {/* Barra de Título Editorial */}
-      <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-neutral-200 dark:border-neutral-800">
-        <div>
-          <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-500 block mb-0.5">
-            Módulo 01 • Motor Local
-          </span>
-          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-950 dark:text-white">
-            Generador de QR <span class="font-normal text-neutral-500">by Silantro Labs</span>
-          </h2>
-        </div>
+    <div class="w-full space-y-4 min-w-0 max-w-full">
+      {/* Contenedor Principal: 2 Columnas Balanceadas */}
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start min-w-0 max-w-full">
+        {/* Columna de Configuración (7 Cols en Desktop) */}
+        <div class="lg:col-span-7 flex flex-col gap-3 min-w-0 max-w-full">
+          {/* Selector de Pestañas con Acción de Reset */}
+          <div class="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-px gap-2 min-w-0 max-w-full">
+            <div class="flex items-center gap-0.5 sm:gap-1 overflow-x-auto min-w-0 flex-1 scrollbar-none py-0.5" role="tablist" aria-label="Secciones de configuración QR">
+              {tabs.map((tab) => {
+                const isActive = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setActiveTab(tab.id)}
+                    class={`flex-shrink-0 py-1.5 px-2 sm:px-3 text-xs font-mono font-medium transition-colors flex items-center gap-1 border-b-2 -mb-px rounded-t-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white ${
+                      isActive
+                        ? 'border-neutral-900 dark:border-white text-neutral-950 dark:text-white font-semibold'
+                        : 'border-transparent text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <span class="text-[10px] text-neutral-400 dark:text-neutral-500">{tab.num}.</span>
+                    <span>{tab.label}</span>
+                    {tab.tag && (
+                      <span class="text-[9px] px-1 py-0.2 rounded border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800">
+                        {tab.tag}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
 
-        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded border border-neutral-200 dark:border-neutral-800 text-xs font-mono text-neutral-600 dark:text-neutral-400 self-start sm:self-auto">
-          <img
-            src="/logos/logo-con-fondo.jpg"
-            alt="Silantro Labs"
-            class="w-4 h-4 rounded object-cover"
-          />
-          <span>Silantro Labs</span>
-        </div>
-      </div>
-
-      {/* Grid Principal de 2 Columnas */}
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Columna Izquierda: Pestañas y Controles (7 columnas) */}
-        <div class="lg:col-span-7 flex flex-col gap-6 order-2 lg:order-1">
-          {/* Navegación por Pestañas */}
-          <div class="flex items-center border-b border-neutral-200 dark:border-neutral-800">
-            {tabs.map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  type="button"
-                  onClick={() => setActiveTab(tab.id)}
-                  class={`py-2 px-3 sm:px-4 text-xs font-mono font-semibold transition-colors flex items-center gap-1.5 border-b-2 -mb-[1px] ${
-                    isActive
-                      ? 'border-neutral-900 dark:border-neutral-100 text-neutral-950 dark:text-white'
-                      : 'border-transparent text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
-                  }`}
-                >
-                  <span>{tab.label}</span>
-                  {tab.badge && (
-                    <span class="text-[10px] px-1 py-0.2 rounded border border-neutral-400 dark:border-neutral-600 font-mono">
-                      {tab.badge}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
+            <button
+              type="button"
+              onClick={handleReset}
+              class="flex-shrink-0 font-mono text-[10px] sm:text-[11px] text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white rounded px-1.5 py-0.5"
+              title="Restablecer valores originales"
+            >
+              Restablecer
+            </button>
           </div>
 
           {/* Panel Activo */}
-          <div class="p-6 rounded border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 min-h-[380px]">
+          <div class="surface-card p-4 sm:p-5 min-w-0 max-w-full overflow-hidden">
             {activeTab === 'content' && (
               <QrInputPanel state={qrState} onChange={handleUpdate} />
             )}
@@ -130,8 +136,8 @@ export default function QrTool() {
           </div>
         </div>
 
-        {/* Columna Derecha: Previsualización y Descarga (5 columnas, sticky en escritorio) */}
-        <div class="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-20">
+        {/* Columna de Previsualización & Descarga (5 Cols en Desktop, Sticky) */}
+        <div class="lg:col-span-5 lg:sticky lg:top-20 min-w-0 max-w-full">
           <QrPreviewCard state={qrState} onChange={handleUpdate} />
         </div>
       </div>

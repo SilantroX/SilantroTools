@@ -8,7 +8,7 @@ const tools = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    category: z.enum(['generadores', 'formateadores', 'conversores', 'seguridad', 'texto']),
+    category: z.enum(['generadores', 'imagenes', 'texto', 'seguridad', 'documentos', 'formateadores', 'conversores']),
     badge: z.string().optional(),
     isNew: z.boolean().default(false),
     publishedDate: z.string(),

@@ -28,9 +28,17 @@ const slug = tool.id.replace(/\.md$/, '');
     {slug === 'qr-generator' ? (
       <QrTool client:load />
     ) : (
-      <div class="glass-panel rounded-3xl p-10 text-center">
-        <h2 class="text-xl font-bold mb-2">Herramienta en desarrollo</h2>
-        <p class="text-sm text-zinc-500">Pronto disponible en Silantro Tools.</p>
+      <div class="surface-card p-12 text-center max-w-lg mx-auto space-y-4">
+        <div class="w-10 h-10 mx-auto rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-500 font-mono text-sm">
+          //
+        </div>
+        <h2 class="text-base font-semibold text-neutral-950 dark:text-white">Herramienta en desarrollo</h2>
+        <p class="text-xs text-neutral-500 leading-relaxed">
+          Este módulo está siendo optimizado para ejecución estática sin dependencias de servidor. Estará disponible próximamente.
+        </p>
+        <a href="/" class="btn-secondary text-xs inline-flex mt-2">
+          Volver al catálogo
+        </a>
       </div>
     )}
   </div>

@@ -27,6 +27,7 @@ export interface QrOptionsState {
   vcard: VCardData;
   emailAddress: string;
   emailSubject: string;
+  emailBody?: string;
 
   // Estilo y Forma
   dotsType: DotType;
@@ -54,6 +55,7 @@ export interface QrOptionsState {
 export interface QrPreset {
   id: string;
   name: string;
+  description: string;
   dotsColor: string;
   bgColor: string;
   cornersSquareColor: string;

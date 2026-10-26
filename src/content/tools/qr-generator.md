@@ -1,6 +1,6 @@
 ---
-title: "Generador de Códigos QR by Silantro Labs"
-description: "Crea códigos QR personalizados en alta resolución con el logo oficial de Silantro Labs o tu propia marca, colores minimalistas y descarga inmediata en PNG o SVG. 100% privado en tu navegador."
+title: "Generador de Códigos QR"
+description: "Crea códigos QR personalizados en alta resolución con logotipo de marca, estilos monocromáticos y descarga en PNG o SVG. 100% privado en tu navegador."
 category: "generadores"
 badge: "Disponible"
 isNew: true
@@ -9,7 +9,7 @@ faqs:
   - question: "¿Por qué este generador QR es más seguro que las alternativas basadas en servidor?"
     answer: "La inmensa mayoría de las herramientas gratuitas en línea reciben tus textos, contraseñas de red Wi-Fi o datos de contacto a través de peticiones HTTP en sus servidores backend, donde quedan registrados en logs de acceso o bases de datos no auditadas. Silantro Tools ejecuta la matriz de codificación y el renderizado directamente en la memoria volátil de tu navegador mediante JavaScript y la API Canvas. Ningún paquete de red abandona tu dispositivo."
   - question: "¿Por qué es mandatorio utilizar el nivel de corrección H al incrustar un logotipo central?"
-    answer: "El estándar internacional ISO/IEC 18004 define cuatro niveles de redundancia matemática Reed-Solomon. Un logotipo superpuesto en el centro del código oculta físicamente una porción de los módulos de datos. Al seleccionar el nivel H (High), se reserva un 30% de redundancia de bloques de paridad en el campo de Galois GF(2^8), permitiendo que el lector reconstruya la totalidad de la información ausente sin que falle el escaneo."
+    answer: "El estándar internacional ISO/IEC 18004 define cuatro niveles de redundancia matemática Reed-Solomon. Un logotipo superpuesto en el centro del código oculta físicamente una porción de los módulos de datos. Al seleccionar el nivel H (High), se reserva un 30% de redundancia de bloques de paridad en el campo de Galois GF(2⁸), permitiendo que el lector reconstruya la totalidad de la información ausente sin que falle el escaneo."
   - question: "¿Cuál es la diferencia técnica entre exportar en formato PNG y vector SVG?"
     answer: "El formato PNG es un mapa de bits rasterizado compuesto por una matriz fija de píxeles, adecuado para sitios web, pantallas digitales y compartición rápida. El formato SVG (Scalable Vector Graphics) se almacena como ecuaciones geométricas y coordenadas vectoriales XML, lo que permite escalarlo a dimensiones monumentales (vallas publicitarias, empaques industriales, corte láser) con nitidez matemática absoluta y cero pixelado."
   - question: "¿Cómo se calcula el tamaño físico mínimo necesario para imprimir un código QR?"
@@ -43,7 +43,7 @@ Un código QR no es un mosaico aleatorio de puntos, sino una arquitectura geomé
 ```text
 ┌─────────────┐               ┌─────────────┐
 │  [FINDER]   │ ── TIMING ──  │  [FINDER]   │
-│   (1:1:3:1:1)│               │  (1:1:3:1:1)│
+│ (1:1:3:1:1) │               │ (1:1:3:1:1) │
 └─────────────┘               └─────────────┘
        │                             │
     FORMAT                        FORMAT
@@ -53,7 +53,7 @@ Un código QR no es un mosaico aleatorio de puntos, sino una arquitectura geomé
                └─────────────┘       │
 ┌─────────────┐                      │
 │  [FINDER]   │ ─────────────────────┘
-│   (1:1:3:1:1)│     DATA + REED-SOLOMON
+│ (1:1:3:1:1) │     DATA + REED-SOLOMON
 └─────────────┘
 ```
 
@@ -69,12 +69,12 @@ Un código QR no es un mosaico aleatorio de puntos, sino una arquitectura geomé
 
 Una de las cualidades más sobresalientes del código QR es su capacidad de regenerar información dañada, borrosa o parcialmente ocluida. Esto se logra implementando el algoritmo algebraico de **corrección de errores Reed-Solomon**.
 
-### Fundamentos en Campos de Galois $GF(2^8)$
-El flujo de datos de entrada se segmenta en palabras de código (*codewords*) de 8 bits (un byte). Cada palabra de código se trata como un elemento de un campo finito de Galois $GF(2^8)$, estructurado a partir del polinomio primitivo irreductible:
+### Fundamentos en Campos de Galois GF(2⁸)
+El flujo de datos de entrada se segmenta en palabras de código (*codewords*) de 8 bits (un byte). Cada palabra de código se trata como un elemento de un campo finito de Galois GF(2⁸), estructurado a partir del polinomio primitivo irreductible:
 
-$$p(x) = x^8 + x^4 + x^3 + x^2 + 1$$
+`p(x) = x⁸ + x⁴ + x³ + x² + 1`
 
-El algoritmo de Reed-Solomon trata la secuencia de datos como los coeficientes de un polinomio $D(x)$ y lo multiplica por un polinomio generador $G(x)$ cuyas raíces son potencias sucesivas del elemento primitivo $\alpha$. El residuo de esta división polinomial genera los bloques de paridad redundantes que se añaden al final del mensaje.
+El algoritmo de Reed-Solomon trata la secuencia de datos como los coeficientes de un polinomio `D(x)` y lo multiplica por un polinomio generador `G(x)` cuyas raíces son potencias sucesivas del elemento primitivo `α`. El residuo de esta división polinomial genera los bloques de paridad redundantes que se añaden al final del mensaje.
 
 ### Niveles Estandarizados de Corrección (ECC)
 
@@ -106,11 +106,11 @@ El error más recurrente al implementar códigos QR en medios físicos es subdim
 ### Fórmula de Relación Distancia-Tamaño (Regla 10:1)
 Para sensores ópticos convencionales de smartphones, el diámetro lateral mínimo recomendado se calcula mediante la relación:
 
-$$\text{Longitud de Lado (cm)} \ge \frac{\text{Distancia de Lectura (cm)}}{10}$$
+`Longitud mínima de lado (cm) ≥ Distancia de lectura (cm) / 10`
 
-* **Ejemplo 1 (Menú de mesa a 30 cm):** Tamaño mínimo = $30 / 10 = 3\text{ cm}$.
-* **Ejemplo 2 (Cartel en vitrina a 2 metros):** Tamaño mínimo = $200 / 10 = 20\text{ cm}$.
-* **Ejemplo 3 (Valla publicitaria a 15 metros):** Tamaño mínimo = $1500 / 10 = 1.5\text{ metros}$.
+* **Ejemplo 1 (Menú de mesa a 30 cm):** Tamaño mínimo = `30 / 10 = 3 cm`.
+* **Ejemplo 2 (Cartel en vitrina a 2 metros):** Tamaño mínimo = `200 / 10 = 20 cm`.
+* **Ejemplo 3 (Valla publicitaria a 15 metros):** Tamaño mínimo = `1500 / 10 = 1.5 metros`.
 
 ### Comparativa: Raster (PNG) frente a Vectorial (SVG)
 - **PNG (Raster):** Compuesto por píxeles fijos. Si se amplía un PNG de 512px a dimensiones de gigantografía, los bordes de los módulos se vuelven borrosos por interpolación bilineal, dispersando el rayo de luz en los lectores ópticos. Es óptimo para firmas de correo, mensajería y pantallas digitales.

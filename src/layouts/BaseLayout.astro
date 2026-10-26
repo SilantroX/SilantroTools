@@ -11,9 +11,18 @@ interface Props {
   canonicalPath?: string;
   isTool?: boolean;
   faqs?: Array<{ question: string; answer: string }>;
+  breadcrumbs?: Array<{ name: string; path: string }>;
 }
 
-const { title, description, canonicalPath, isTool = false, faqs = [] } = Astro.props;
+const {
+  title,
+  description,
+  canonicalPath,
+  isTool = false,
+  faqs = [],
+  breadcrumbs = [],
+} = Astro.props;
+
 const currentPath = Astro.url.pathname;
 ---
 
@@ -26,24 +35,50 @@ const currentPath = Astro.url.pathname;
       canonicalPath={canonicalPath || currentPath}
       isTool={isTool}
       faqs={faqs}
+      breadcrumbs={breadcrumbs}
     />
     <script is:inline>
-      // Prevenir FOUC (Flash of Unstyled Content) para tema oscuro
-      const savedTheme = localStorage.getItem('theme');
-      if (
-        savedTheme === 'dark' ||
-        (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-      ) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      // Sincronización inmediata de tema: LocalStorage + Detección del Sistema (prevenir FOUC)
+      (function () {
+        function applyTheme(isDark) {
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            const metaTheme = document.querySelector('meta[name="theme-color"]:not([media])');
+            if (metaTheme) metaTheme.setAttribute('content', '#09090b');
+          } else {
+            document.documentElement.classList.remove('dark');
+            const metaTheme = document.querySelector('meta[name="theme-color"]:not([media])');
+            if (metaTheme) metaTheme.setAttribute('content', '#ffffff');
+          }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        const isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark.matches);
+        applyTheme(isDark);
+
+        // Detección y respuesta dinámica a cambios del tema del sistema
+        systemPrefersDark.addEventListener('change', (e) => {
+          if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches);
+            window.dispatchEvent(new CustomEvent('silantro:theme-change', { detail: { isDark: e.matches } }));
+          }
+        });
+      })();
     </script>
   </head>
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen bg-[var(--bg-page)] text-[var(--text-primary)] antialiased transition-colors duration-150 selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-neutral-950">
+    <!-- Enlace de salto de accesibilidad WCAG 2.2 -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-neutral-950 focus:text-white dark:focus:bg-white dark:focus:text-neutral-950 focus:rounded-md focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-neutral-400 text-xs font-mono font-semibold"
+    >
+      Saltar al contenido principal
+    </a>
+
     <Header currentPath={currentPath} />
 
-    <main class="flex-grow">
+    <main id="main-content" class="flex-grow focus:outline-none" tabindex="-1">
       <slot />
     </main>
 

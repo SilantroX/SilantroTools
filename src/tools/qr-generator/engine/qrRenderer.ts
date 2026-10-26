@@ -10,9 +10,13 @@ let qrInstance: QRCodeStyling | null = null;
  */
 export function buildQrPayload(state: QrOptionsState): string {
   switch (state.contentType) {
-    case 'url':
+    case 'url': {
+      const text = state.rawText.trim();
+      return text || 'https://tools.silantrolabs.com';
+    }
+
     case 'text':
-      return state.rawText.trim() || 'https://tools.silantrolabs.com';
+      return state.rawText.trim() || 'Silantro Tools';
 
     case 'wifi': {
       const { ssid, password, encryption, hidden } = state.wifi;
@@ -24,8 +28,11 @@ export function buildQrPayload(state: QrOptionsState): string {
 
     case 'email': {
       const email = state.emailAddress.trim();
-      const subject = encodeURIComponent(state.emailSubject || '');
-      return `mailto:${email}?subject=${subject}`;
+      const params = new URLSearchParams();
+      if (state.emailSubject) params.set('subject', state.emailSubject);
+      if (state.emailBody) params.set('body', state.emailBody);
+      const queryString = params.toString();
+      return `mailto:${email}${queryString ? `?${queryString}` : ''}`;
     }
 
     case 'vcard': {
@@ -114,7 +121,6 @@ export function buildEngineOptions(state: QrOptionsState, size: number = 320): O
 export async function downloadQr(state: QrOptionsState, format: FileExtension = 'png'): Promise<void> {
   const highResOptions = buildEngineOptions(state, state.downloadSize);
   
-  // Si es SVG, cambiamos el tipo de renderizado a svg
   if (format === 'svg') {
     highResOptions.type = 'svg';
   }

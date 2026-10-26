@@ -243,6 +243,15 @@ Cada herramienta implementa de forma automática dos esquemas JSON-LD mediante e
 - Con la integración `@astrojs/sitemap`, cada nueva herramienta añadida a `src/content/tools/` genera automáticamente su entrada en `sitemap-index.xml` durante el build.
 - `public/robots.txt` expone el sitemap a Googlebot y Bingbot de forma limpia.
 
+### Evolución del Catálogo: Enfoque en Utilidad Masiva y Cotidiana
+Tras la consolidación del Generador QR, el catálogo evoluciona de herramientas exclusivamente para desarrolladores hacia micro-utilidades esenciales para cualquier usuario (estudiantes, oficinas, profesionales y uso personal), manteniendo la arquitectura 100% Client-Side:
+
+1. **`qr-generator` (Activo):** Generador de códigos QR vectoriales con inserción de marca.
+2. **`image-compressor` (Próximamente):** Compresor y redimensionador local de fotos/documentos escaneados para trámites y web sin subir archivos a la nube.
+3. **`text-cleaner` (Próximamente):** Reparador de textos copiados de PDFs (elimina saltos de línea rotos, dobles espacios y cuenta palabras).
+4. **`password-generator` (Próximamente):** Generador de claves robustas y frases de paso memorables con entropía nativa.
+5. **`diff-checker` (Próximamente):** Comparador visual privado de versiones de texto y contratos.
+
 ---
 
 ## 8. Hoja de Ruta de Implementación (Roadmap)

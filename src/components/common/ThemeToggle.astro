@@ -5,16 +5,18 @@
 <button
   id="theme-toggle"
   type="button"
-  aria-label="Alternar tema visual claro y oscuro"
-  class="p-1.5 rounded text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors focus:outline-none"
+  aria-label="Cambiar a tema oscuro"
+  aria-pressed="false"
+  title="Alternar entre modo claro y modo oscuro"
+  class="relative p-2 rounded-md text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white focus-visible:ring-offset-1 select-none"
 >
-  <!-- Sol (visible en modo oscuro) -->
+  <!-- Icono Sol (Activar Modo Claro) -->
   <svg
     id="theme-toggle-light-icon"
     class="w-4 h-4 hidden"
     fill="none"
     stroke="currentColor"
-    stroke-width="1.5"
+    stroke-width="1.75"
     viewBox="0 0 24 24"
     aria-hidden="true"
   >
@@ -22,13 +24,13 @@
     <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
   </svg>
 
-  <!-- Luna (visible en modo claro) -->
+  <!-- Icono Luna (Activar Modo Oscuro) -->
   <svg
     id="theme-toggle-dark-icon"
     class="w-4 h-4 hidden"
     fill="none"
     stroke="currentColor"
-    stroke-width="1.5"
+    stroke-width="1.75"
     viewBox="0 0 24 24"
     aria-hidden="true"
   >
@@ -48,32 +50,41 @@
 
     if (!themeToggleBtn || !themeToggleDarkIcon || !themeToggleLightIcon) return;
 
-    const isDark = document.documentElement.classList.contains('dark') ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      themeToggleLightIcon.classList.remove('hidden');
-      themeToggleDarkIcon.classList.add('hidden');
-    } else {
-      document.documentElement.classList.remove('dark');
-      themeToggleDarkIcon.classList.remove('hidden');
-      themeToggleLightIcon.classList.add('hidden');
-    }
-
-    themeToggleBtn.addEventListener('click', function () {
-      const willBeDark = !document.documentElement.classList.contains('dark');
-      if (willBeDark) {
+    function syncState(isDark) {
+      if (isDark) {
         document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
         themeToggleLightIcon.classList.remove('hidden');
         themeToggleDarkIcon.classList.add('hidden');
+        themeToggleBtn.setAttribute('aria-label', 'Cambiar a modo claro');
+        themeToggleBtn.setAttribute('aria-pressed', 'true');
+        themeToggleBtn.setAttribute('title', 'Activar modo claro');
       } else {
         document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
         themeToggleDarkIcon.classList.remove('hidden');
         themeToggleLightIcon.classList.add('hidden');
+        themeToggleBtn.setAttribute('aria-label', 'Cambiar a modo oscuro');
+        themeToggleBtn.setAttribute('aria-pressed', 'false');
+        themeToggleBtn.setAttribute('title', 'Activar modo oscuro');
       }
+    }
+
+    const currentIsDark = document.documentElement.classList.contains('dark') ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    syncState(currentIsDark);
+
+    themeToggleBtn.onclick = function () {
+      const willBeDark = !document.documentElement.classList.contains('dark');
+      try {
+        localStorage.setItem('theme', willBeDark ? 'dark' : 'light');
+      } catch (e) {
+        // localStorage deshabilitado en modo incógnito estricto
+      }
+      syncState(willBeDark);
+    };
+
+    window.addEventListener('silantro:theme-change', (e) => {
+      syncState(e.detail.isDark);
     });
   }
 
