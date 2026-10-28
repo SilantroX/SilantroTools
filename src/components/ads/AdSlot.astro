@@ -2,11 +2,19 @@
 // src/components/ads/AdSlot.astro
 interface Props {
   slotId?: string;
+  slotName?: string;
   format?: 'rectangle' | 'leaderboard' | 'horizontal-responsive';
   className?: string;
 }
 
-const { slotId = 'default-slot', format = 'rectangle', className = '' } = Astro.props;
+const {
+  slotId = 'default-slot',
+  slotName = '',
+  format = 'rectangle',
+  className = '',
+} = Astro.props;
+
+const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-1982658636778600';
 
 // Dimensiones fijas mínimas para garantizar CLS = 0
 const formatClasses = {
@@ -14,31 +22,55 @@ const formatClasses = {
   leaderboard: 'min-h-[90px] w-full max-w-[728px]',
   'horizontal-responsive': 'min-h-[100px] w-full max-w-4xl',
 }[format];
+
+const cleanSlotId = slotId?.trim();
+const isNumericSlot = Boolean(cleanSlotId && /^\d{8,16}$/.test(cleanSlotId));
+
+const isConfigured = Boolean(
+  import.meta.env.PROD &&
+  adsenseId &&
+  !adsenseId.includes('XXXX') &&
+  isNumericSlot
+);
 ---
 
 <aside
   class={`ad-slot-reserved my-8 flex flex-col items-center justify-center mx-auto ${className}`}
   aria-label="Espacio de publicidad"
 >
-  <span class="font-mono text-[10px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-1.5">
+  <span class="font-mono text-[10px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600 mb-1.5 select-none">
     Publicidad
   </span>
   <div
-    class={`relative flex items-center justify-center border border-dashed border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 text-center overflow-hidden transition-all ${formatClasses}`}
+    class={`relative flex items-center justify-center border border-dashed border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 text-center overflow-hidden transition-all rounded-lg ${formatClasses}`}
   >
-    {import.meta.env.PROD && slotId !== 'default-slot' ? (
+    {isConfigured ? (
       <ins
         class="adsbygoogle"
         style="display:block"
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-        data-ad-slot={slotId}
+        data-ad-client={adsenseId}
+        data-ad-slot={cleanSlotId}
         data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>
+      <script is:inline>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     ) : (
       <div class="p-4 font-mono text-[11px] text-neutral-400 dark:text-neutral-600 flex flex-col items-center gap-1 select-none">
-        <span>[ Espacio Publicitario Reservado ]</span>
-        <span class="text-[10px]">Zero Layout Shift Compliance</span>
+        <span class="font-medium text-neutral-700 dark:text-neutral-300">
+          [ Bloque Manual: {slotName || cleanSlotId || 'AdSense'} ]
+        </span>
+        <span class="text-[10px] text-neutral-400 dark:text-neutral-500">
+          Zero Layout Shift Compliance (CLS = 0)
+        </span>
+        {!isNumericSlot && (
+          <span class="text-[9px] text-neutral-400/80 dark:text-neutral-600">
+            {cleanSlotId && cleanSlotId !== 'default-slot'
+              ? `Slot pendiente (${cleanSlotId}): asigna el ID numérico de bloque de AdSense`
+              : 'Listo para recibir data-ad-slot de tu panel de AdSense'}
+          </span>
+        )}
       </div>
     )}
   </div>

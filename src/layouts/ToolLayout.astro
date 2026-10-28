@@ -93,7 +93,12 @@ const breadcrumbs = [
     </section>
 
     <!-- Slot Publicitario 1 (Inmediatamente después de la herramienta, Cero CLS) -->
-    <AdSlot slotId="ad-tool-top" format="horizontal-responsive" className="my-6" />
+    <AdSlot
+      slotId={import.meta.env.PUBLIC_ADSENSE_SLOT_TOOL_TOP || "ad-tool-top"}
+      slotName="Herramienta Superior"
+      format="horizontal-responsive"
+      className="my-6"
+    />
 
     <!-- Guía Técnica Editorial y Contenido de Valor (Colapsable/Accesible para Reducir Scroll) -->
     <section id="technical-guide" class="my-6 sm:my-8 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-neutral-50/50 dark:bg-neutral-900/30 overflow-hidden" aria-label="Especificaciones Técnicas y Documentación">
@@ -158,6 +163,11 @@ const breadcrumbs = [
     )}
 
     <!-- Slot Publicitario 2 (Final de página, Cero CLS) -->
-    <AdSlot slotId="ad-tool-bottom" format="horizontal-responsive" className="my-6" />
+    <AdSlot
+      slotId={import.meta.env.PUBLIC_ADSENSE_SLOT_TOOL_BOTTOM || "ad-tool-bottom"}
+      slotName="Herramienta Inferior"
+      format="horizontal-responsive"
+      className="my-6"
+    />
   </div>
 </BaseLayout>

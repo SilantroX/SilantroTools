@@ -2,6 +2,7 @@
 // src/pages/index.astro
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ToolCatalog from '@/components/catalog/ToolCatalog';
+import AdSlot from '@/components/ads/AdSlot.astro';
 ---
 
 <BaseLayout
@@ -101,5 +102,13 @@ import ToolCatalog from '@/components/catalog/ToolCatalog';
         </div>
       </div>
     </section>
+
+    <!-- Espacio publicitario manual al final del catálogo -->
+    <AdSlot
+      slotId={import.meta.env.PUBLIC_ADSENSE_SLOT_HOME_BOTTOM || "ad-home-bottom"}
+      slotName="Catálogo Principal (Inferior)"
+      format="horizontal-responsive"
+      className="mt-10"
+    />
   </div>
 </BaseLayout>

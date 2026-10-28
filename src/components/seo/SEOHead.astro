@@ -126,7 +126,7 @@ const breadcrumbSchema = breadcrumbItems.length > 1 ? {
 } : null;
 
 // Control seguro de AdSense: Solo se inyecta con ID real de producción
-const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID;
+const adsenseId = import.meta.env.PUBLIC_ADSENSE_ID || 'ca-pub-1982658636778600';
 const hasValidAdsense = Boolean(adsenseId && !adsenseId.includes('XXXX'));
 ---
 
