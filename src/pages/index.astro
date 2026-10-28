@@ -3,6 +3,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ToolCatalog from '@/components/catalog/ToolCatalog';
 import AdSlot from '@/components/ads/AdSlot.astro';
+import { ADS_CONFIG } from '@/lib/ads-config';
 ---
 
 <BaseLayout
@@ -105,7 +106,7 @@ import AdSlot from '@/components/ads/AdSlot.astro';
 
     <!-- Espacio publicitario manual al final del catálogo -->
     <AdSlot
-      slotId={import.meta.env.PUBLIC_ADSENSE_SLOT_HOME_BOTTOM || "ad-home-bottom"}
+      slotId={ADS_CONFIG.slots.homeBottom}
       slotName="Catálogo Principal (Inferior)"
       format="horizontal-responsive"
       className="mt-10"

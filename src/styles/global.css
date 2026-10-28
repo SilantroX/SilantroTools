@@ -283,3 +283,13 @@
   content-visibility: auto;
   contain-intrinsic-size: 100px;
 }
+
+/* Google AdSense containment & unfilled state collapse */
+.ad-slot-container {
+  content-visibility: auto;
+}
+
+ins.adsbygoogle[data-ad-status="unfilled"],
+.ad-slot-container:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+  display: none !important;
+}

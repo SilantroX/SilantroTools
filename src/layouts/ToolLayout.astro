@@ -2,6 +2,7 @@
 // src/layouts/ToolLayout.astro
 import BaseLayout from './BaseLayout.astro';
 import AdSlot from '@/components/ads/AdSlot.astro';
+import { ADS_CONFIG } from '@/lib/ads-config';
 
 interface Props {
   title: string;
@@ -94,7 +95,7 @@ const breadcrumbs = [
 
     <!-- Slot Publicitario 1 (Inmediatamente después de la herramienta, Cero CLS) -->
     <AdSlot
-      slotId={import.meta.env.PUBLIC_ADSENSE_SLOT_TOOL_TOP || "ad-tool-top"}
+      slotId={ADS_CONFIG.slots.toolTop}
       slotName="Herramienta Superior"
       format="horizontal-responsive"
       className="my-6"
@@ -164,7 +165,7 @@ const breadcrumbs = [
 
     <!-- Slot Publicitario 2 (Final de página, Cero CLS) -->
     <AdSlot
-      slotId={import.meta.env.PUBLIC_ADSENSE_SLOT_TOOL_BOTTOM || "ad-tool-bottom"}
+      slotId={ADS_CONFIG.slots.toolBottom}
       slotName="Herramienta Inferior"
       format="horizontal-responsive"
       className="my-6"
