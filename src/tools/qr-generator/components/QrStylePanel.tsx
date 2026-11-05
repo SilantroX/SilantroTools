@@ -12,8 +12,8 @@ interface Props {
 const MONOCHROME_PRESETS: QrPreset[] = [
   {
     id: 'mono-obsidian',
-    name: 'Obsidiana Estándar',
-    description: 'Alto contraste clásico',
+    name: 'Clásico negro',
+    description: 'Máximo contraste y lectura rápida',
     dotsColor: '#09090b',
     bgColor: '#ffffff',
     cornersSquareColor: '#09090b',
@@ -24,8 +24,8 @@ const MONOCHROME_PRESETS: QrPreset[] = [
   },
   {
     id: 'mono-graphite',
-    name: 'Grafito Suave',
-    description: 'Gris neutro de precisión',
+    name: 'Gris suave',
+    description: 'Tono sobrio y elegante',
     dotsColor: '#27272a',
     bgColor: '#ffffff',
     cornersSquareColor: '#27272a',
@@ -36,8 +36,8 @@ const MONOCHROME_PRESETS: QrPreset[] = [
   },
   {
     id: 'mono-inverted',
-    name: 'Modo Invertido',
-    description: 'Fondo oscuro para pantallas',
+    name: 'Fondo oscuro',
+    description: 'Para pantallas y modo oscuro',
     dotsColor: '#ffffff',
     bgColor: '#09090b',
     cornersSquareColor: '#ffffff',
@@ -48,8 +48,8 @@ const MONOCHROME_PRESETS: QrPreset[] = [
   },
   {
     id: 'mono-industrial',
-    name: 'Matriz Cuadrada',
-    description: 'Estética industrial rígida',
+    name: 'Cuadrado tradicional',
+    description: 'Aspecto clásico de código QR',
     dotsColor: '#000000',
     bgColor: '#ffffff',
     cornersSquareColor: '#000000',
@@ -60,8 +60,8 @@ const MONOCHROME_PRESETS: QrPreset[] = [
   },
   {
     id: 'mono-classy',
-    name: 'Editorial Minimal',
-    description: 'Geometría estilizada',
+    name: 'Líneas modernas',
+    description: 'Estilo limpio y estilizado',
     dotsColor: '#18181b',
     bgColor: '#ffffff',
     cornersSquareColor: '#18181b',
@@ -73,17 +73,17 @@ const MONOCHROME_PRESETS: QrPreset[] = [
 ];
 
 const DOT_OPTIONS: Array<{ id: DotType; label: string; desc: string }> = [
-  { id: 'rounded', label: 'Suave', desc: 'Vértices sutiles' },
-  { id: 'dots', label: 'Circular', desc: 'Puntos concéntricos' },
-  { id: 'extra-rounded', label: 'Curvo', desc: 'Curvatura máxima' },
-  { id: 'classy', label: 'Editorial', desc: 'Líneas simétricas' },
-  { id: 'square', label: 'Cuadrado', desc: 'Matriz ISO clásica' },
+  { id: 'rounded', label: 'Suave', desc: 'Bordes redondeados' },
+  { id: 'dots', label: 'Circular', desc: 'Puntos redondos' },
+  { id: 'extra-rounded', label: 'Curvo', desc: 'Curvatura pronunciada' },
+  { id: 'classy', label: 'Líneas', desc: 'Diseño moderno' },
+  { id: 'square', label: 'Cuadrado', desc: 'Forma tradicional' },
 ];
 
 const CORNER_OPTIONS: Array<{ id: CornerSquareType; label: string }> = [
-  { id: 'extra-rounded', label: 'Redondeado' },
-  { id: 'dot', label: 'Circular' },
-  { id: 'square', label: 'Rectangular' },
+  { id: 'extra-rounded', label: 'Redondeadas' },
+  { id: 'dot', label: 'Circulares' },
+  { id: 'square', label: 'Cuadradas' },
 ];
 
 const COLOR_SWATCHES = ['#000000', '#09090b', '#27272a', '#52525b', '#71717a', '#a1a1aa', '#e4e4e7', '#ffffff'];
@@ -109,10 +109,10 @@ export default function QrStylePanel({ state, onChange }: Props) {
 
   return (
     <div class="space-y-6">
-      {/* Presets Monocromáticos */}
+      {/* Estilos rápidos recomendados */}
       <div>
-        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2.5">
-          Estilos Monocromáticos Preconfigurados
+        <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200 mb-2.5">
+          Estilos rápidos recomendados
         </label>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
           {MONOCHROME_PRESETS.map((preset) => {
@@ -126,9 +126,9 @@ export default function QrStylePanel({ state, onChange }: Props) {
                 key={preset.id}
                 type="button"
                 onClick={() => applyPreset(preset)}
-                class={`p-2.5 rounded-lg border text-left transition-all ${
+                class={`p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
                   isSelected
-                    ? 'border-neutral-900 dark:border-white bg-neutral-50 dark:bg-neutral-800/60 ring-1 ring-neutral-900 dark:ring-white'
+                    ? 'border-neutral-900 dark:border-white bg-neutral-100/80 dark:bg-neutral-800/80 ring-1 ring-neutral-900 dark:ring-white shadow-xs'
                     : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-400 dark:hover:border-neutral-600'
                 }`}
               >
@@ -147,7 +147,7 @@ export default function QrStylePanel({ state, onChange }: Props) {
                 <span class="block text-xs font-semibold text-neutral-900 dark:text-neutral-100">
                   {preset.name}
                 </span>
-                <span class="block text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5">
+                <span class="block text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5 leading-snug">
                   {preset.description}
                 </span>
               </button>
@@ -156,10 +156,10 @@ export default function QrStylePanel({ state, onChange }: Props) {
         </div>
       </div>
 
-      {/* Geometría de Módulos (Puntos) */}
+      {/* Forma de los puntos */}
       <div>
-        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2">
-          Patrón de Módulos Centrales
+        <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200 mb-2">
+          Forma de los puntos
         </label>
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
           {DOT_OPTIONS.map((opt) => {
@@ -169,9 +169,9 @@ export default function QrStylePanel({ state, onChange }: Props) {
                 key={opt.id}
                 type="button"
                 onClick={() => onChange({ dotsType: opt.id })}
-                class={`py-2 px-2.5 rounded-lg text-xs text-left border transition-all ${
+                class={`py-2 px-2.5 rounded-lg text-xs text-left border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-semibold border-neutral-900 dark:border-white'
+                    ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-semibold border-neutral-900 dark:border-white shadow-xs'
                     : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400'
                 }`}
               >
@@ -185,10 +185,10 @@ export default function QrStylePanel({ state, onChange }: Props) {
         </div>
       </div>
 
-      {/* Geometría de Esquinas (Patrones de Detección) */}
+      {/* Forma de las esquinas */}
       <div>
-        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2">
-          Vértices de Alineación (Finder Patterns)
+        <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200 mb-2">
+          Forma de las esquinas
         </label>
         <div class="grid grid-cols-3 gap-2">
           {CORNER_OPTIONS.map((opt) => {
@@ -198,9 +198,9 @@ export default function QrStylePanel({ state, onChange }: Props) {
                 key={opt.id}
                 type="button"
                 onClick={() => onChange({ cornersSquareType: opt.id })}
-                class={`py-2 px-3 rounded-lg text-xs font-medium text-center border transition-all ${
+                class={`py-2 px-3 rounded-lg text-xs font-medium text-center border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-semibold border-neutral-900 dark:border-white'
+                    ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-semibold border-neutral-900 dark:border-white shadow-xs'
                     : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400'
                 }`}
               >
@@ -211,36 +211,35 @@ export default function QrStylePanel({ state, onChange }: Props) {
         </div>
       </div>
 
-      {/* Control de Colores y Verificación de Contraste */}
+      {/* Personalización de colores */}
       <div class="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/50 space-y-4">
         <div class="flex items-center justify-between">
-          <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500">
-            Paleta Monocromática & Contraste Óptico
+          <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+            Colores del código
           </label>
           <div
-            class={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-mono ${
+            class={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] ${
               isLowContrast
-                ? 'bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 font-bold border border-neutral-400'
-                : 'text-neutral-600 dark:text-neutral-400'
+                ? 'bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-200 font-medium border border-amber-300 dark:border-amber-800'
+                : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium'
             }`}
           >
-            <span>Contraste:</span>
-            <span class="font-semibold">{contrastRatio.toFixed(1)}:1</span>
+            <span>{isLowContrast ? '⚠ Contraste bajo' : '✓ Fácil de escanear'}</span>
           </div>
         </div>
 
-        {/* Alerta de contraste bajo para cámaras */}
+        {/* Alerta clara de contraste */}
         {isLowContrast && (
-          <div class="p-3 rounded border border-neutral-400 dark:border-neutral-600 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-xs font-mono">
-            <span>⚠ Advertencia de lectura:</span> El contraste entre módulos y fondo es inferior a 4.5:1. Los lectores ópticos y cámaras de smartphones pueden fallar al decodificar el código. Se recomienda aumentar el contraste.
+          <div class="p-3 rounded-md border border-amber-300 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200 text-xs">
+            <span>Aviso de lectura:</span> La combinación elegida tiene poco contraste. Algunas cámaras de celular podrían tardar en detectarlo. Te recomendamos un color oscuro sobre fondo claro.
           </div>
         )}
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Color de los módulos */}
+          {/* Color del código */}
           <div class="space-y-2">
             <div class="flex items-center justify-between text-xs font-medium text-neutral-700 dark:text-neutral-300">
-              <span>Color de Módulos (Puntos)</span>
+              <span>Color de los puntos</span>
               <span class="font-mono text-[11px] uppercase text-neutral-500">{state.dotsColor}</span>
             </div>
             <div class="flex items-center gap-2">
@@ -249,7 +248,7 @@ export default function QrStylePanel({ state, onChange }: Props) {
                 value={state.dotsColor}
                 onChange={(e) => onChange({ dotsColor: (e.target as HTMLInputElement).value })}
                 class="w-9 h-9 rounded-md border border-neutral-300 dark:border-neutral-700 cursor-pointer bg-transparent"
-                title="Seleccionar color personalizado"
+                title="Elegir color personalizado"
               />
               <div class="flex items-center gap-1">
                 {COLOR_SWATCHES.map((hex) => (
@@ -257,9 +256,9 @@ export default function QrStylePanel({ state, onChange }: Props) {
                     key={hex}
                     type="button"
                     onClick={() => onChange({ dotsColor: hex })}
-                    class="w-5 h-5 rounded-full border border-neutral-300 dark:border-neutral-700 hover:scale-110 transition-transform"
+                    class="w-5 h-5 rounded-full border border-neutral-300 dark:border-neutral-700 hover:scale-110 transition-transform cursor-pointer"
                     style={{ backgroundColor: hex }}
-                    title={`Seleccionar ${hex}`}
+                    title={`Elegir ${hex}`}
                   />
                 ))}
               </div>
@@ -269,7 +268,7 @@ export default function QrStylePanel({ state, onChange }: Props) {
           {/* Color de fondo */}
           <div class="space-y-2">
             <div class="flex items-center justify-between text-xs font-medium text-neutral-700 dark:text-neutral-300">
-              <span>Color de Fondo</span>
+              <span>Color de fondo</span>
               <span class="font-mono text-[11px] uppercase text-neutral-500">{state.bgColor}</span>
             </div>
             <div class="flex items-center gap-2">
@@ -278,7 +277,7 @@ export default function QrStylePanel({ state, onChange }: Props) {
                 value={state.bgColor}
                 onChange={(e) => onChange({ bgColor: (e.target as HTMLInputElement).value })}
                 class="w-9 h-9 rounded-md border border-neutral-300 dark:border-neutral-700 cursor-pointer bg-transparent"
-                title="Seleccionar fondo personalizado"
+                title="Elegir fondo personalizado"
               />
               <div class="flex items-center gap-1">
                 {COLOR_SWATCHES.map((hex) => (
@@ -286,9 +285,9 @@ export default function QrStylePanel({ state, onChange }: Props) {
                     key={hex}
                     type="button"
                     onClick={() => onChange({ bgColor: hex })}
-                    class="w-5 h-5 rounded-full border border-neutral-300 dark:border-neutral-700 hover:scale-110 transition-transform"
+                    class="w-5 h-5 rounded-full border border-neutral-300 dark:border-neutral-700 hover:scale-110 transition-transform cursor-pointer"
                     style={{ backgroundColor: hex }}
-                    title={`Seleccionar ${hex}`}
+                    title={`Elegir ${hex}`}
                   />
                 ))}
               </div>
@@ -297,11 +296,11 @@ export default function QrStylePanel({ state, onChange }: Props) {
         </div>
       </div>
 
-      {/* Margen Perimetral (Quiet Zone) */}
+      {/* Margen alrededor del código */}
       <div>
         <div class="flex items-center justify-between mb-2">
-          <label for="margin-slider" class="font-mono text-[11px] uppercase tracking-wider text-neutral-500">
-            Margen de Aislamiento Óptico (Quiet Zone)
+          <label for="margin-slider" class="text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+            Margen en blanco exterior
           </label>
           <span class="font-mono text-xs text-neutral-700 dark:text-neutral-300 font-semibold">
             {state.margin} px
@@ -317,8 +316,8 @@ export default function QrStylePanel({ state, onChange }: Props) {
           onInput={(e) => onChange({ margin: Number((e.target as HTMLInputElement).value) })}
           class="w-full h-1.5 bg-neutral-200 dark:bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-neutral-900 dark:accent-neutral-100"
         />
-        <p class="font-mono text-[11px] text-neutral-400 mt-1">
-          La norma ISO/IEC 18004 recomienda mantener al menos 4 módulos de espacio en blanco alrededor para una detección instantánea.
+        <p class="text-[11px] text-neutral-500 dark:text-neutral-400 mt-1">
+          Un pequeño margen en blanco alrededor ayuda a que la cámara del celular enfoque y lea el código al instante.
         </p>
       </div>
     </div>

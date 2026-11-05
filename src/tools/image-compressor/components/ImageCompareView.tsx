@@ -20,7 +20,8 @@ export default function ImageCompareView({
   const [viewMode, setViewMode] = useState<ViewMode>('split');
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handlePointerDown = () => {
+  const handlePointerDown = (e: PointerEvent) => {
+    e.preventDefault();
     setIsDragging(true);
   };
 
@@ -61,17 +62,17 @@ export default function ImageCompareView({
       {/* Barra de Controles de Vista */}
       <div class="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-2.5">
         <span class="text-xs font-semibold text-neutral-800 dark:text-neutral-200 flex items-center gap-2">
-          <span>Vista Comparativa</span>
+          <span>Comparar antes y después</span>
           {isProcessing && (
-            <span class="inline-block w-2 h-2 rounded-full bg-neutral-400 animate-pulse" />
+            <span class="inline-block w-2 h-2 rounded-full bg-neutral-900 dark:bg-white animate-pulse" aria-hidden="true" />
           )}
         </span>
 
-        <div class="inline-flex rounded-md border border-neutral-200 dark:border-neutral-800 p-0.5 bg-neutral-100 dark:bg-neutral-900 text-xs">
+        <div class="inline-flex rounded-lg border border-neutral-200 dark:border-neutral-800 p-0.5 bg-neutral-100 dark:bg-neutral-900 text-xs">
           <button
             type="button"
             onClick={() => setViewMode('split')}
-            class={`px-2 py-0.5 rounded cursor-pointer transition-colors ${
+            class={`px-2.5 py-0.5 rounded-md cursor-pointer transition-colors ${
               viewMode === 'split'
                 ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white font-medium shadow-xs'
                 : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
@@ -82,7 +83,7 @@ export default function ImageCompareView({
           <button
             type="button"
             onClick={() => setViewMode('optimized')}
-            class={`px-2 py-0.5 rounded cursor-pointer transition-colors ${
+            class={`px-2.5 py-0.5 rounded-md cursor-pointer transition-colors ${
               viewMode === 'optimized'
                 ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white font-medium shadow-xs'
                 : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
@@ -93,7 +94,7 @@ export default function ImageCompareView({
           <button
             type="button"
             onClick={() => setViewMode('original')}
-            class={`px-2 py-0.5 rounded cursor-pointer transition-colors ${
+            class={`px-2.5 py-0.5 rounded-md cursor-pointer transition-colors ${
               viewMode === 'original'
                 ? 'bg-white dark:bg-neutral-800 text-neutral-950 dark:text-white font-medium shadow-xs'
                 : 'text-neutral-500 hover:text-neutral-900 dark:hover:text-white'
@@ -107,9 +108,8 @@ export default function ImageCompareView({
       {/* Contenedor del Visor */}
       <div
         ref={containerRef}
-        class="relative w-full rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 overflow-hidden select-none flex items-center justify-center min-h-[300px] max-h-[500px]"
+        class="relative w-full rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-950 overflow-hidden select-none flex items-center justify-center min-h-[260px] sm:min-h-[320px] max-h-[480px]"
         style={{
-          // Patrón de transparencia sutil tipo tablero de ajedrez
           backgroundImage:
             'radial-gradient(var(--border-subtle) 1px, transparent 0)',
           backgroundSize: '16px 16px',
@@ -118,26 +118,26 @@ export default function ImageCompareView({
         {viewMode === 'original' && (
           <img
             src={imageInfo.previewUrl}
-            alt="Original"
-            class="max-h-[500px] w-auto max-w-full object-contain mx-auto"
+            alt="Foto original"
+            class="max-h-[480px] w-auto max-w-full object-contain mx-auto"
           />
         )}
 
         {viewMode === 'optimized' && (
           <img
             src={previewSrc}
-            alt="Optimizado"
-            class="max-h-[500px] w-auto max-w-full object-contain mx-auto"
+            alt="Foto optimizada"
+            class="max-h-[480px] w-auto max-w-full object-contain mx-auto"
           />
         )}
 
         {viewMode === 'split' && (
-          <div class="relative w-full h-full flex items-center justify-center min-h-[300px] max-h-[500px]">
+          <div class="relative w-full h-full flex items-center justify-center min-h-[260px] sm:min-h-[320px] max-h-[480px]">
             {/* Capa Inferior: Imagen Optimizada */}
             <img
               src={previewSrc}
-              alt="Optimizado"
-              class="max-h-[500px] w-auto max-w-full object-contain block mx-auto pointer-events-none"
+              alt="Foto optimizada"
+              class="max-h-[480px] w-auto max-w-full object-contain block mx-auto pointer-events-none"
             />
 
             {/* Capa Superior Recortada: Imagen Original */}
@@ -149,8 +149,8 @@ export default function ImageCompareView({
             >
               <img
                 src={imageInfo.previewUrl}
-                alt="Original"
-                class="max-h-[500px] w-auto max-w-full object-contain block mx-auto"
+                alt="Foto original"
+                class="max-h-[480px] w-auto max-w-full object-contain block mx-auto"
               />
             </div>
 
@@ -166,20 +166,20 @@ export default function ImageCompareView({
             </div>
 
             {/* Etiquetas Superpuestas */}
-            <div class="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 backdrop-blur-xs text-white text-[10px] font-mono uppercase tracking-wider pointer-events-none z-10">
+            <div class="absolute top-3 left-3 px-2 py-1 rounded bg-black/60 backdrop-blur-xs text-white text-[10px] font-medium tracking-wide pointer-events-none z-10">
               Original
             </div>
-            <div class="absolute top-3 right-3 px-2 py-1 rounded bg-black/60 backdrop-blur-xs text-white text-[10px] font-mono uppercase tracking-wider pointer-events-none z-10">
-              Optimizado
+            <div class="absolute top-3 right-3 px-2 py-1 rounded bg-black/60 backdrop-blur-xs text-white text-[10px] font-medium tracking-wide pointer-events-none z-10">
+              Optimizada
             </div>
           </div>
         )}
       </div>
 
-      <div class="text-[11px] text-neutral-400 text-center">
+      <div class="text-[11px] text-neutral-500 dark:text-neutral-400 text-center">
         {viewMode === 'split'
-          ? 'Arrastra la barra central izquierda/derecha para inspeccionar la nitidez entre ambas imágenes.'
-          : 'Alterna entre pestañas para comparar con exactitud.'}
+          ? 'Arrastra la barra en el centro para comparar la nitidez de la foto original frente a la optimizada.'
+          : 'Alterna entre los botones de arriba para inspeccionar los detalles de cada versión.'}
       </div>
     </div>
   );

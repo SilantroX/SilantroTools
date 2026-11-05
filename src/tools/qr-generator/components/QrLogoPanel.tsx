@@ -30,7 +30,7 @@ export default function QrLogoPanel({ state, onChange }: Props) {
 
   const processFile = (file: File) => {
     if (!file.type.match(/^image\/(png|jpeg|svg\+xml|webp)$/)) {
-      alert('Por favor selecciona una imagen válida (PNG, JPG, SVG o WEBP).');
+      alert('Por favor selecciona una imagen válida en formato PNG, JPG, SVG o WebP.');
       return;
     }
 
@@ -79,58 +79,58 @@ export default function QrLogoPanel({ state, onChange }: Props) {
 
   return (
     <div class="space-y-4 min-w-0 max-w-full">
-      {/* Botón de Insignia Oficial Silantro Labs */}
+      {/* Botón para usar el Logo de Silantro */}
       <div>
-        <label class="block font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-500 mb-2">
-          Insignia Oficial de Marca
+        <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200 mb-2">
+          Logo oficial de Silantro
         </label>
         <button
           type="button"
           onClick={handleToggleSilantroLogo}
-          class={`w-full p-3 rounded-lg border text-left transition-all flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 ${
+          class={`w-full p-3 rounded-lg border text-left transition-all flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 cursor-pointer ${
             state.isBrandLogoActive
               ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 border-neutral-900 dark:border-white shadow-xs'
               : 'bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-600'
           }`}
         >
           <div class="flex items-center gap-2.5 min-w-0">
-            <div class="w-7 h-7 rounded border border-neutral-300 dark:border-neutral-700 overflow-hidden flex items-center justify-center bg-white flex-shrink-0">
+            <div class="w-8 h-8 rounded border border-neutral-300 dark:border-neutral-700 overflow-hidden flex items-center justify-center bg-white flex-shrink-0">
               <img
                 src={SILANTRO_LOGO_PATH}
-                alt="Silantro Labs Logo"
-                width="28"
-                height="28"
+                alt="Logo Silantro Labs"
+                width="32"
+                height="32"
                 class="w-full h-full object-cover"
               />
             </div>
             <div class="min-w-0">
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="font-semibold text-xs tracking-tight">Logo Oficial Silantro</span>
+                <span class="font-semibold text-xs tracking-tight">Logo de Silantro Labs</span>
                 <span
-                  class={`font-mono text-[9px] uppercase px-1.5 py-0.2 rounded border ${
+                  class={`text-[10px] px-1.5 py-0.2 rounded font-mono ${
                     state.isBrandLogoActive
-                      ? 'border-white/30 text-white dark:border-black/30 dark:text-black font-semibold'
-                      : 'border-neutral-200 dark:border-neutral-800 text-neutral-500'
+                      ? 'bg-white/20 text-white dark:bg-black/10 dark:text-black font-semibold'
+                      : 'border border-neutral-200 dark:border-neutral-800 text-neutral-500'
                   }`}
                 >
-                  {state.isBrandLogoActive ? 'Incrustado' : 'Disponible'}
+                  {state.isBrandLogoActive ? 'Activo' : 'Opcional'}
                 </span>
               </div>
-              <p class={`text-[10px] sm:text-[11px] mt-0.5 truncate ${state.isBrandLogoActive ? 'text-neutral-300 dark:text-neutral-600' : 'text-neutral-500'}`}>
-                Incrusta el emblema en el centro del código
+              <p class={`text-[11px] mt-0.5 truncate ${state.isBrandLogoActive ? 'text-neutral-300 dark:text-neutral-600' : 'text-neutral-500 dark:text-neutral-400'}`}>
+                Muestra el emblema de Silantro en el centro del código
               </p>
             </div>
           </div>
-          <span class="font-mono text-[11px] font-semibold flex-shrink-0">
-            {state.isBrandLogoActive ? '[ ACTIVO ]' : '[ ACTIVAR ]'}
+          <span class="text-xs font-semibold flex-shrink-0">
+            {state.isBrandLogoActive ? 'Quitar' : 'Añadir'}
           </span>
         </button>
       </div>
 
       {/* Carga de Logotipo Personalizado */}
       <div>
-        <label class="block font-mono text-[11px] uppercase tracking-wider text-neutral-500 mb-2.5">
-          Carga de Marca Propia o Corporativa
+        <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200 mb-2">
+          Subir tu propio logo o imagen
         </label>
         <div
           onDragOver={handleDragOver}
@@ -150,16 +150,16 @@ export default function QrLogoPanel({ state, onChange }: Props) {
             onChange={handleCustomFileUpload}
           />
           <label for="custom-logo-file" class="cursor-pointer block space-y-1.5">
-            <div class="w-8 h-8 mx-auto rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-500">
+            <div class="w-9 h-9 mx-auto rounded-full bg-neutral-200/70 dark:bg-neutral-800 flex items-center justify-center text-neutral-600 dark:text-neutral-400">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
               </svg>
             </div>
             <span class="text-xs font-semibold text-neutral-900 dark:text-neutral-100 hover:underline block">
-              Arrastra un archivo aquí o haz clic para examinar
+              Arrastra tu imagen aquí o haz clic para seleccionarla
             </span>
-            <span class="font-mono text-[11px] text-neutral-400 block">
-              PNG, JPG, SVG o WEBP (procesado exclusivamente en memoria local)
+            <span class="text-[11px] text-neutral-500 dark:text-neutral-400 block">
+              PNG, JPG, SVG o WebP. Tu imagen no se sube a ningún servidor.
             </span>
           </label>
         </div>
@@ -170,28 +170,28 @@ export default function QrLogoPanel({ state, onChange }: Props) {
         <div class="p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-900/60 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded border border-neutral-300 dark:border-neutral-700 overflow-hidden bg-white flex items-center justify-center">
-                <img src={state.logoUrl} alt="Vista previa logo" class="w-full h-full object-contain" />
+              <div class="w-7 h-7 rounded border border-neutral-300 dark:border-neutral-700 overflow-hidden bg-white flex items-center justify-center">
+                <img src={state.logoUrl} alt="Vista previa del logo" class="w-full h-full object-contain" />
               </div>
-              <span class="font-mono text-xs font-semibold text-neutral-900 dark:text-neutral-100">
-                Logotipo Activo
+              <span class="text-xs font-semibold text-neutral-900 dark:text-neutral-100">
+                Logo activo en el código
               </span>
             </div>
             <button
               type="button"
               onClick={handleRemoveLogo}
-              class="font-mono text-xs text-neutral-500 hover:text-neutral-950 dark:hover:text-white underline transition-colors"
+              class="text-xs text-neutral-500 hover:text-neutral-950 dark:hover:text-white underline transition-colors cursor-pointer"
             >
-              [ Quitar logotipo ]
+              Quitar logo
             </button>
           </div>
 
           <div>
-            <div class="flex items-center justify-between text-xs mb-1.5 font-mono">
-              <label for="logo-size-slider" class="text-neutral-500">
-                Escala Central del Logo:
+            <div class="flex items-center justify-between text-xs mb-1.5">
+              <label for="logo-size-slider" class="text-neutral-600 dark:text-neutral-400 font-medium">
+                Tamaño del logo en el centro:
               </label>
-              <span class="text-neutral-900 dark:text-neutral-100 font-semibold">
+              <span class="font-mono text-neutral-900 dark:text-neutral-100 font-semibold">
                 {Math.round(state.logoSize * 100)}%
               </span>
             </div>
@@ -207,15 +207,15 @@ export default function QrLogoPanel({ state, onChange }: Props) {
             />
           </div>
 
-          <div class="p-3 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 font-mono text-[11px] text-neutral-600 dark:text-neutral-400 space-y-1">
+          <div class="p-3 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-[11px] text-neutral-600 dark:text-neutral-400 space-y-1">
             <div class="flex items-center gap-1.5 font-semibold text-neutral-900 dark:text-neutral-100">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 text-neutral-900 dark:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span>Reed-Solomon Nivel H (30% redundancia) activado automáticamente</span>
+              <span>Protección automática de lectura activada</span>
             </div>
-            <p class="leading-normal">
-              Para garantizar que el código se pueda escanear sin errores a pesar del área cubierta por el logo central, se computan bloques de corrección de error de nivel alto.
+            <p class="leading-relaxed">
+              El código refuerza automáticamente su información para que cualquier celular pueda leerlo sin dificultad aunque el logo cubra parte del centro.
             </p>
           </div>
         </div>

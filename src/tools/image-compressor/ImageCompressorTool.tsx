@@ -35,17 +35,16 @@ export default function ImageCompressorTool() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Referencias a blobs y URLs activas para evitar fugas de memoria
+  // Referencias a blobs y URLs activas para evitar consumo innecesario de memoria
   const activeResultUrlRef = useRef<string | null>(null);
   const debounceTimerRef = useRef<number | null>(null);
 
-  // Carga y decodificación de nueva imagen
+  // Carga y procesamiento inicial de la imagen seleccionada
   const handleFileSelected = async (file: File) => {
     setIsProcessing(true);
     setErrorMessage(null);
 
     try {
-      // Liberar URL previa si existía
       if (imageInfo?.previewUrl) {
         URL.revokeObjectURL(imageInfo.previewUrl);
       }
@@ -76,13 +75,15 @@ export default function ImageCompressorTool() {
         scalePercent: 100,
       }));
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Error al procesar la imagen seleccionada.';
+      const msg = err instanceof Error
+        ? err.message
+        : 'No pudimos abrir esta imagen. Verifica que sea un archivo JPG, PNG o WebP compatible.';
       setErrorMessage(msg);
       setIsProcessing(false);
     }
   };
 
-  // Restablecer herramienta al estado inicial
+  // Restablecer al estado inicial
   const handleReset = () => {
     if (imageInfo?.previewUrl) {
       URL.revokeObjectURL(imageInfo.previewUrl);
@@ -102,7 +103,7 @@ export default function ImageCompressorTool() {
     setOptions((prev) => ({ ...prev, ...updates }));
   };
 
-  // Efecto reactivo: re-ejecutar compresión con debounce adaptativo cuando cambian las opciones o la imagen
+  // Efecto reactivo: re-ejecutar compresión de manera adaptativa
   useEffect(() => {
     if (!imageInfo) return;
 
@@ -125,7 +126,6 @@ export default function ImageCompressorTool() {
 
         cleanup();
 
-        // Liberar URL anterior del resultado para no saturar memoria RAM
         if (activeResultUrlRef.current && activeResultUrlRef.current !== newResult.url) {
           URL.revokeObjectURL(activeResultUrlRef.current);
         }
@@ -134,7 +134,7 @@ export default function ImageCompressorTool() {
         setResult(newResult);
         setIsProcessing(false);
       } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : 'Error al optimizar la imagen.';
+        const msg = err instanceof Error ? err.message : 'Hubo un error al optimizar la imagen.';
         setErrorMessage(msg);
         setIsProcessing(false);
       }
@@ -158,8 +158,8 @@ export default function ImageCompressorTool() {
   ]);
 
   const tabs: Array<{ id: TabId; num: string; label: string }> = [
-    { id: 'compress', num: '01', label: 'Compresión' },
-    { id: 'resize', num: '02', label: 'Dimensiones' },
+    { id: 'compress', num: '01', label: 'Reducir peso' },
+    { id: 'resize', num: '02', label: 'Cambiar medidas' },
   ];
 
   return (
@@ -170,7 +170,7 @@ export default function ImageCompressorTool() {
           <button
             type="button"
             onClick={() => setErrorMessage(null)}
-            class="text-xs font-mono underline cursor-pointer"
+            class="text-xs underline cursor-pointer ml-3 font-medium"
           >
             Cerrar
           </button>
@@ -179,19 +179,20 @@ export default function ImageCompressorTool() {
 
       {!imageInfo ? (
         /* Estado Inicial: Selector / Dropzone */
-        <div class="max-w-2xl mx-auto py-6">
+        <div class="max-w-2xl mx-auto py-4 sm:py-6">
           <ImageDropzone onFileSelected={handleFileSelected} disabled={isProcessing} />
         </div>
       ) : (
         /* Estado Activo: Layout Balanceado en 2 Columnas */
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-start min-w-0 max-w-full">
-          {/* Columna Izquierda: Panel de Configuración (5 Cols en Desktop) */}
+          {/* Columna Izquierda: Panel de Configuración y Métricas (5 Cols en Desktop) */}
           <div class="lg:col-span-5 flex flex-col gap-3 min-w-0 max-w-full">
             {/* Pestañas de Control */}
             <div class="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-px gap-2 min-w-0 max-w-full">
               <div
                 class="flex items-center gap-1 overflow-x-auto min-w-0 flex-1 scrollbar-none py-0.5"
                 role="tablist"
+                aria-label="Opciones de optimización"
               >
                 {tabs.map((tab) => {
                   const isActive = activeTab === tab.id;
@@ -202,20 +203,20 @@ export default function ImageCompressorTool() {
                       role="tab"
                       aria-selected={isActive}
                       onClick={() => setActiveTab(tab.id)}
-                      class={`px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+                      class={`px-3 py-1.5 text-xs font-medium rounded-t-md transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 border-b-2 -mb-px focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white ${
                         isActive
-                          ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 shadow-xs'
-                          : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800/60'
+                          ? 'border-neutral-900 dark:border-white text-neutral-950 dark:text-white font-semibold'
+                          : 'border-transparent text-neutral-500 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100/50 dark:hover:bg-neutral-900/50'
                       }`}
                     >
                       <span
                         class={`font-mono text-[10px] ${
                           isActive
-                            ? 'text-neutral-300 dark:text-neutral-600'
-                            : 'text-neutral-400 dark:text-neutral-500'
+                            ? 'text-neutral-400 dark:text-neutral-500'
+                            : 'text-neutral-400 dark:text-neutral-600'
                         }`}
                       >
-                        {tab.num}
+                        {tab.num}.
                       </span>
                       <span>{tab.label}</span>
                     </button>
@@ -226,10 +227,10 @@ export default function ImageCompressorTool() {
               <button
                 type="button"
                 onClick={handleReset}
-                class="btn-ghost text-xs cursor-pointer text-neutral-500 hover:text-neutral-950 dark:hover:text-white"
-                title="Cambiar imagen"
+                class="text-xs text-neutral-500 hover:text-neutral-950 dark:hover:text-neutral-100 transition-colors cursor-pointer py-1 px-2 rounded focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-900 dark:focus-visible:ring-white"
+                title="Elegir otra imagen"
               >
-                ↺ Cambiar
+                ↺ Cambiar imagen
               </button>
             </div>
 
@@ -246,7 +247,7 @@ export default function ImageCompressorTool() {
                 />
               )}
 
-              {/* Barra de Estadísticas y Descarga */}
+              {/* Barra de Estadísticas y Botón de Descarga Principal */}
               <CompressionMetricsBar
                 imageInfo={imageInfo}
                 result={result}
@@ -256,7 +257,7 @@ export default function ImageCompressorTool() {
             </div>
           </div>
 
-          {/* Columna Derecha: Comparador Visual y Métricas (7 Cols en Desktop) */}
+          {/* Columna Derecha: Comparador Visual (7 Cols en Desktop) */}
           <div class="lg:col-span-7 flex flex-col gap-4 min-w-0 max-w-full">
             <ImageCompareView
               imageInfo={imageInfo}

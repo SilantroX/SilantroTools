@@ -71,10 +71,10 @@ export default function ImageDropzone({ onFileSelected, disabled }: ImageDropzon
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       onClick={() => !disabled && fileInputRef.current?.click()}
-      class={`relative w-full rounded-lg border-2 border-dashed transition-all cursor-pointer p-8 sm:p-10 text-center flex flex-col items-center justify-center gap-4 ${
+      class={`relative w-full rounded-xl border-2 border-dashed transition-all cursor-pointer p-8 sm:p-12 text-center flex flex-col items-center justify-center gap-4 ${
         isDragOver
-          ? 'border-neutral-900 dark:border-neutral-100 bg-neutral-100/80 dark:bg-neutral-800/60 scale-[0.995]'
-          : 'border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 bg-neutral-50/50 dark:bg-neutral-900/30'
+          ? 'border-neutral-900 dark:border-neutral-100 bg-neutral-100/90 dark:bg-neutral-800/80 scale-[0.995]'
+          : 'border-neutral-300 dark:border-neutral-700 hover:border-neutral-500 dark:hover:border-neutral-500 bg-neutral-50/60 dark:bg-neutral-900/40'
       } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
       role="button"
       tabIndex={0}
@@ -96,7 +96,7 @@ export default function ImageDropzone({ onFileSelected, disabled }: ImageDropzon
       />
 
       {/* Ícono sobrio minimalista */}
-      <div class="w-12 h-12 rounded-full bg-neutral-200/70 dark:bg-neutral-800 flex items-center justify-center text-neutral-700 dark:text-neutral-300">
+      <div class="w-12 h-12 rounded-full bg-neutral-200/80 dark:bg-neutral-800 flex items-center justify-center text-neutral-800 dark:text-neutral-200">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -115,20 +115,20 @@ export default function ImageDropzone({ onFileSelected, disabled }: ImageDropzon
       </div>
 
       <div class="space-y-1.5 max-w-sm">
-        <p class="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-          Arrastra tu imagen aquí o <span class="underline underline-offset-4 decoration-neutral-400">haz clic para explorar</span>
+        <p class="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+          Arrastra tu foto aquí o <span class="underline underline-offset-4 decoration-neutral-400">haz clic para elegirla</span>
         </p>
         <p class="text-xs text-neutral-500 dark:text-neutral-400">
           También puedes pegar directamente con <kbd class="px-1.5 py-0.5 text-[10px] font-mono rounded bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700">Ctrl+V</kbd>
         </p>
       </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-1.5 pt-2">
+      <div class="flex flex-wrap items-center justify-center gap-1.5 pt-1">
         <span class="badge-tech">JPG</span>
         <span class="badge-tech">PNG</span>
         <span class="badge-tech">WEBP</span>
         <span class="badge-tech">AVIF</span>
-        <span class="badge-tech">100% En Navegador</span>
+        <span class="badge-tech">100% en tu navegador</span>
       </div>
     </div>
   );

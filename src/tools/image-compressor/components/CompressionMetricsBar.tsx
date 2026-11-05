@@ -26,12 +26,12 @@ export default function CompressionMetricsBar({
   const isLarger = result && result.size > imageInfo.originalSize;
 
   return (
-    <div class="space-y-4 pt-3 border-t border-neutral-200 dark:border-neutral-800">
+    <div class="space-y-4 pt-4 border-t border-neutral-200 dark:border-neutral-800">
       {/* Resumen Métrico */}
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
         {/* Tamaño Original */}
         <div class="p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30">
-          <div class="text-[11px] text-neutral-400">Tamaño Original</div>
+          <div class="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Peso original</div>
           <div class="font-mono text-sm font-semibold text-neutral-800 dark:text-neutral-200 mt-0.5">
             {formatBytes(imageInfo.originalSize)}
           </div>
@@ -42,7 +42,7 @@ export default function CompressionMetricsBar({
 
         {/* Tamaño Optimizado */}
         <div class="p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30">
-          <div class="text-[11px] text-neutral-400">Tamaño Optimizado</div>
+          <div class="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Nuevo peso</div>
           <div class="font-mono text-sm font-semibold text-neutral-950 dark:text-white mt-0.5">
             {result ? formatBytes(result.size) : '...'}
           </div>
@@ -53,8 +53,8 @@ export default function CompressionMetricsBar({
 
         {/* Ahorro Porcentual */}
         <div class="col-span-2 sm:col-span-1 p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 flex flex-col justify-center">
-          <div class="text-[11px] text-neutral-400">Reducción Total</div>
-          <div class="mt-0.5 flex items-baseline gap-1.5">
+          <div class="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium">Ahorro conseguido</div>
+          <div class="mt-0.5 flex items-baseline gap-1.5 flex-wrap">
             {isSmaller && (
               <span class="font-mono text-base font-bold text-neutral-950 dark:text-white">
                 -{result.savingsPercentage}%
@@ -67,7 +67,7 @@ export default function CompressionMetricsBar({
             )}
             {!result && <span class="font-mono text-xs text-neutral-400">-</span>}
             {isSmaller && (
-              <span class="text-[10px] font-mono text-neutral-400">
+              <span class="text-[10px] font-mono text-neutral-500 dark:text-neutral-400">
                 ({formatBytes(result.savingsBytes)} menos)
               </span>
             )}
@@ -81,10 +81,10 @@ export default function CompressionMetricsBar({
           type="button"
           onClick={handleDownload}
           disabled={!result || isProcessing}
-          class="btn-primary w-full py-2.5 text-sm cursor-pointer shadow-sm"
+          class="btn-primary w-full py-2.5 text-xs sm:text-sm cursor-pointer shadow-xs"
         >
           {isProcessing ? (
-            <span>Comprimiendo imagen...</span>
+            <span>Optimizando imagen...</span>
           ) : (
             <>
               <svg
@@ -97,13 +97,14 @@ export default function CompressionMetricsBar({
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
               <span>
-                Descargar Imagen Optimizada {result ? `(${formatBytes(result.size)})` : ''}
+                Descargar foto optimizada {result ? `(${formatBytes(result.size)})` : ''}
               </span>
             </>
           )}
@@ -112,9 +113,9 @@ export default function CompressionMetricsBar({
         <button
           type="button"
           onClick={onReset}
-          class="btn-secondary w-full sm:w-auto px-4 py-2.5 text-xs text-neutral-500 hover:text-neutral-900 dark:hover:text-white cursor-pointer"
+          class="btn-secondary w-full sm:w-auto px-4 py-2.5 text-xs text-neutral-600 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white cursor-pointer"
         >
-          Nueva imagen
+          Elegir otra
         </button>
       </div>
     </div>

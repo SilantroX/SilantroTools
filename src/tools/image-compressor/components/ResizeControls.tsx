@@ -52,26 +52,26 @@ export default function ResizeControls({ imageInfo, options, onChange }: ResizeC
   };
 
   const commonResolutions = [
-    { label: 'Full HD', w: 1920, h: 1080 },
-    { label: 'HD 720p', w: 1280, h: 720 },
-    { label: 'Avatar 1:1', w: 512, h: 512 },
-    { label: 'Web Hero', w: 1440, h: 810 },
+    { label: 'Full HD (1920×1080)', w: 1920, h: 1080, note: 'Pantallas y presentaciones' },
+    { label: 'HD 720p (1280×720)', w: 1280, h: 720, note: 'Correos y mensajes' },
+    { label: 'Cuadrada (512×512)', w: 512, h: 512, note: 'Fotos de perfil' },
+    { label: 'Portada web (1440×810)', w: 1440, h: 810, note: 'Cabeceras y blogs' },
   ];
 
   return (
     <div class="space-y-5">
-      {/* Información de Dimensiones Originales */}
+      {/* Medidas Originales */}
       <div class="flex items-center justify-between p-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/30 text-xs">
-        <span class="text-neutral-500 dark:text-neutral-400">Resolución Original:</span>
-        <span class="font-mono font-medium text-neutral-900 dark:text-neutral-100">
+        <span class="text-neutral-600 dark:text-neutral-400 font-medium">Medidas originales:</span>
+        <span class="font-mono font-semibold text-neutral-900 dark:text-neutral-100">
           {origW} × {origH} px
         </span>
       </div>
 
       {/* Escala porcentual rápida */}
       <div class="space-y-2">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-          Escala Rápida
+        <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+          Reducir a porcentaje
         </label>
         <div class="grid grid-cols-4 gap-2">
           {[100, 75, 50, 25].map((pct) => (
@@ -79,10 +79,10 @@ export default function ResizeControls({ imageInfo, options, onChange }: ResizeC
               key={pct}
               type="button"
               onClick={() => handleScalePreset(pct)}
-              class={`py-2 text-xs font-mono rounded border transition-all cursor-pointer ${
+              class={`py-2 text-xs font-mono rounded-lg border transition-all cursor-pointer ${
                 options.scalePercent === pct
-                  ? 'border-neutral-900 dark:border-neutral-100 bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-semibold'
-                  : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-neutral-300'
+                  ? 'border-neutral-900 dark:border-neutral-100 bg-neutral-900 text-white dark:bg-white dark:text-neutral-950 font-semibold shadow-xs'
+                  : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400'
               }`}
             >
               {pct}%
@@ -93,53 +93,53 @@ export default function ResizeControls({ imageInfo, options, onChange }: ResizeC
 
       {/* Entradas manuales de ancho y alto */}
       <div class="space-y-3">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-          Dimensiones en Píxeles
+        <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+          Medidas personalizadas en píxeles
         </label>
 
         <div class="grid grid-cols-2 gap-3">
           <div class="space-y-1">
-            <span class="text-[11px] text-neutral-500">Ancho (px)</span>
+            <span class="text-xs text-neutral-600 dark:text-neutral-400">Ancho (px)</span>
             <input
               type="number"
               min="1"
               max="16000"
               value={options.customWidth}
               onInput={(e) => handleWidthChange(Number((e.target as HTMLInputElement).value))}
-              class="input-field font-mono"
+              class="input-field font-mono text-xs"
             />
           </div>
 
           <div class="space-y-1">
-            <span class="text-[11px] text-neutral-500">Alto (px)</span>
+            <span class="text-xs text-neutral-600 dark:text-neutral-400">Alto (px)</span>
             <input
               type="number"
               min="1"
               max="16000"
               value={options.customHeight}
               onInput={(e) => handleHeightChange(Number((e.target as HTMLInputElement).value))}
-              class="input-field font-mono"
+              class="input-field font-mono text-xs"
             />
           </div>
         </div>
 
-        <label class="flex items-center gap-2 text-xs text-neutral-700 dark:text-neutral-300 cursor-pointer pt-1">
+        <label class="flex items-center gap-2.5 text-xs text-neutral-700 dark:text-neutral-300 cursor-pointer pt-1 select-none">
           <input
             type="checkbox"
             checked={options.maintainAspectRatio}
             onChange={(e) => onChange({ maintainAspectRatio: (e.target as HTMLInputElement).checked })}
-            class="rounded border-neutral-300 dark:border-neutral-700 accent-neutral-900 dark:accent-white"
+            class="w-4 h-4 rounded border-neutral-300 dark:border-neutral-700 accent-neutral-900 dark:accent-white"
           />
-          <span>Mantener proporción de aspecto original ({imageInfo.aspectRatio.toFixed(2)}:1)</span>
+          <span>Mantener la proporción original (evita que la foto se deforme)</span>
         </label>
       </div>
 
-      {/* Preajustes de Resolución Estándar */}
+      {/* Medidas habituales sugeridas */}
       <div class="space-y-2 pt-2 border-t border-neutral-200 dark:border-neutral-800">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-          Formatos Predefinidos
+        <label class="block text-xs font-semibold text-neutral-800 dark:text-neutral-200">
+          Medidas habituales recomendadas
         </label>
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {commonResolutions.map((res) => (
             <button
               key={res.label}
@@ -152,10 +152,10 @@ export default function ResizeControls({ imageInfo, options, onChange }: ResizeC
                   onChange({ customWidth: res.w, customHeight: res.h, scalePercent: 0 });
                 }
               }}
-              class="px-2.5 py-1.5 text-xs text-left rounded border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-800/60 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors cursor-pointer"
+              class="p-2.5 text-xs text-left rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-800/60 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors cursor-pointer"
             >
-              <div class="font-medium text-neutral-800 dark:text-neutral-200">{res.label}</div>
-              <div class="text-[10px] font-mono text-neutral-400">{res.w} × {res.h} px</div>
+              <div class="font-semibold text-neutral-900 dark:text-neutral-100">{res.label}</div>
+              <div class="text-[10px] text-neutral-500 dark:text-neutral-400 mt-0.5">{res.note}</div>
             </button>
           ))}
         </div>

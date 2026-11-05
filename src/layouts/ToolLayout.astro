@@ -40,17 +40,18 @@ const breadcrumbs = [
       <span class="text-neutral-900 dark:text-white font-medium" aria-current="page">{title}</span>
     </nav>
 
-    <!-- Unified Tool Header Editorial -->
+    <!-- Encabezado Unificado y Claro -->
     <header class="border-b border-neutral-200 dark:border-neutral-800 pb-4 mb-4 sm:pb-5 sm:mb-6">
       <div class="flex flex-wrap items-center gap-2 font-mono text-[11px] mb-2.5">
         <span class="px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 uppercase tracking-wider text-neutral-700 dark:text-neutral-300 bg-neutral-50 dark:bg-neutral-900 font-semibold text-[10px]">
           {category}
         </span>
-        <span class="px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 font-medium text-[10px]">
-          100% Client-Side
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium text-[10px]">
+          <span class="w-1.5 h-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100 animate-pulse" aria-hidden="true"></span>
+          <span>100% en tu navegador</span>
         </span>
         <span class="px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 font-medium text-[10px]">
-          Zero Data Egress
+          Tus datos no salen de tu equipo
         </span>
       </div>
 
@@ -62,27 +63,27 @@ const breadcrumbs = [
         {description}
       </p>
 
-      <!-- Barra de Salto Rápido para Minimizar Scroll -->
+      <!-- Barra de Salto Rápido para Facilitar la Navegación -->
       <nav class="flex items-center gap-2 pt-3 mt-3 border-t border-neutral-100 dark:border-neutral-800/60 font-mono text-[11px]" aria-label="Navegación de secciones">
         <span class="text-neutral-400 dark:text-neutral-600">Saltar a:</span>
         <a
           href="#tool-workspace"
           class="px-2 py-0.5 rounded text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white bg-neutral-100/70 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors"
         >
-          Generador
+          Herramienta
         </a>
         <a
-          href="#technical-guide"
+          href="#practical-guide"
           class="px-2 py-0.5 rounded text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white bg-neutral-100/70 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors"
         >
-          Especificaciones ISO
+          Guía y consejos
         </a>
         {faqs.length > 0 && (
           <a
-            href="#technical-faqs"
+            href="#faq-section"
             class="px-2 py-0.5 rounded text-neutral-700 dark:text-neutral-300 hover:text-neutral-950 dark:hover:text-white bg-neutral-100/70 dark:bg-neutral-900 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors"
           >
-            FAQs ({faqs.length})
+            Preguntas frecuentes ({faqs.length})
           </a>
         )}
       </nav>
@@ -101,18 +102,18 @@ const breadcrumbs = [
       className="my-6"
     />
 
-    <!-- Guía Técnica Editorial y Contenido de Valor (Colapsable/Accesible para Reducir Scroll) -->
-    <section id="technical-guide" class="my-6 sm:my-8 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-neutral-50/50 dark:bg-neutral-900/30 overflow-hidden" aria-label="Especificaciones Técnicas y Documentación">
-      <details id="technical-guide-details" class="group [&_summary::-webkit-details-marker]:hidden">
+    <!-- Guía Práctica y Consejos Útiles (Colapsable/Accesible para Reducir Scroll) -->
+    <section id="practical-guide" class="my-6 sm:my-8 border border-neutral-200 dark:border-neutral-800 rounded-lg bg-neutral-50/50 dark:bg-neutral-900/30 overflow-hidden" aria-label="Guía práctica y consejos útiles">
+      <details id="practical-guide-details" class="group [&_summary::-webkit-details-marker]:hidden">
         <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer select-none bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 group-hover:bg-neutral-50 dark:group-hover:bg-neutral-800/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-white">
           <div class="flex items-center gap-2.5">
             <span class="w-2 h-2 rounded-full bg-neutral-900 dark:bg-white" aria-hidden="true"></span>
             <div>
               <h2 class="text-xs sm:text-sm font-bold text-neutral-950 dark:text-white font-mono uppercase tracking-wider">
-                Documentación Técnica & Estándar ISO/IEC 18004
+                Guía práctica y consejos útiles
               </h2>
               <p class="text-[11px] text-neutral-500 mt-0.5">
-                Fundamentos matemáticos Reed-Solomon, anatomía óptica y reglas de impresión 10:1
+                Recomendaciones y respuestas sencillas para obtener el mejor resultado
               </p>
             </div>
           </div>
@@ -129,7 +130,7 @@ const breadcrumbs = [
       </details>
       <script is:inline>
         if (window.innerWidth >= 768) {
-          const d = document.getElementById('technical-guide-details');
+          const d = document.getElementById('practical-guide-details');
           if (d) d.setAttribute('open', '');
         }
       </script>
@@ -137,11 +138,11 @@ const breadcrumbs = [
 
     <!-- Sección de Preguntas Frecuentes (FAQ) -->
     {faqs.length > 0 && (
-      <section id="technical-faqs" class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" aria-label="Preguntas Frecuentes Técnicas">
+      <section id="faq-section" class="mt-8 border-t border-neutral-200 dark:border-neutral-800 pt-6" aria-label="Preguntas Frecuentes">
         <div class="mb-4">
-          <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-500">Soporte y Respuestas Técnicas</span>
+          <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-500">Dudas habituales</span>
           <h2 class="text-base sm:text-lg font-bold text-neutral-950 dark:text-white mt-0.5">
-            Preguntas Frecuentes
+            Preguntas frecuentes
           </h2>
         </div>
 

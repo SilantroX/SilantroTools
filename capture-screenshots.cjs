@@ -45,15 +45,14 @@ async function capture() {
   const browser = await chromium.launch({ channel: 'msedge' });
 
   const tasks = [
-    { name: 'home-desktop-light', path: '/', width: 1280, height: 800, dark: false, fullPage: true },
-    { name: 'home-desktop-dark', path: '/', width: 1280, height: 800, dark: true, fullPage: true },
-    { name: 'home-mobile-light', path: '/', width: 375, height: 667, dark: false, fullPage: true },
-    { name: 'home-mobile-dark', path: '/', width: 375, height: 667, dark: true, fullPage: true },
     { name: 'qr-desktop-light', path: '/tools/qr-generator/', width: 1280, height: 800, dark: false, fullPage: false },
     { name: 'qr-desktop-dark', path: '/tools/qr-generator/', width: 1280, height: 800, dark: true, fullPage: false },
     { name: 'qr-mobile-light', path: '/tools/qr-generator/', width: 375, height: 667, dark: false, fullPage: false },
     { name: 'qr-mobile-dark', path: '/tools/qr-generator/', width: 375, height: 667, dark: true, fullPage: false },
-    { name: 'cookies-desktop', path: '/cookies/', width: 1280, height: 800, dark: false, fullPage: false },
+    { name: 'compressor-desktop-light', path: '/tools/image-compressor/', width: 1280, height: 800, dark: false, fullPage: false },
+    { name: 'compressor-desktop-dark', path: '/tools/image-compressor/', width: 1280, height: 800, dark: true, fullPage: false },
+    { name: 'compressor-mobile-light', path: '/tools/image-compressor/', width: 375, height: 667, dark: false, fullPage: false },
+    { name: 'compressor-mobile-dark', path: '/tools/image-compressor/', width: 375, height: 667, dark: true, fullPage: false },
   ];
 
   for (const t of tasks) {
