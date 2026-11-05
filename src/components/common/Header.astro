@@ -11,6 +11,7 @@ const { currentPath = '' } = Astro.props;
 const navLinks = [
   { href: '/', label: 'Catálogo' },
   { href: '/tools/qr-generator/', label: 'Generador QR' },
+  { href: '/tools/image-compressor/', label: 'Compresor' },
   { href: '/about/', label: 'Acerca de' },
   { href: '/privacy/', label: 'Privacidad' },
   { href: '/contact/', label: 'Contacto' },
@@ -66,10 +67,10 @@ const navLinks = [
     <div class="flex items-center gap-2">
       <div
         class="hidden sm:inline-flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase text-neutral-600 dark:text-neutral-400 px-2.5 py-1 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-900/80 select-none"
-        title="Todo el cómputo se ejecuta en el navegador del cliente sin llamadas a servidores remotos"
+        title="Tus archivos y datos se procesan en tu navegador sin subirse a ningún servidor"
       >
         <span class="w-1.5 h-1.5 rounded-full bg-neutral-900 dark:bg-neutral-100 animate-pulse" aria-hidden="true"></span>
-        <span>Client-Side</span>
+        <span>100% Privado</span>
       </div>
 
       <ThemeToggle />
@@ -117,7 +118,7 @@ const navLinks = [
         );
       })}
       <div class="pt-2.5 mt-2 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-[11px] font-mono text-neutral-500 px-3">
-        <span>Arquitectura: 100% Client-Side</span>
+        <span>Sin registros • 100% Privado</span>
         <span class="text-neutral-400 dark:text-neutral-600">v0.1</span>
       </div>
     </div>

@@ -45,15 +45,15 @@ async function capture() {
   const browser = await chromium.launch({ channel: 'msedge' });
 
   const tasks = [
-    { name: 'home-desktop-light', path: '/', width: 1280, height: 800, dark: false },
-    { name: 'home-desktop-dark', path: '/', width: 1280, height: 800, dark: true },
-    { name: 'home-mobile-light', path: '/', width: 375, height: 667, dark: false },
-    { name: 'home-mobile-dark', path: '/', width: 375, height: 667, dark: true },
-    { name: 'qr-desktop-light', path: '/tools/qr-generator/', width: 1280, height: 800, dark: false },
-    { name: 'qr-desktop-dark', path: '/tools/qr-generator/', width: 1280, height: 800, dark: true },
-    { name: 'qr-mobile-light', path: '/tools/qr-generator/', width: 375, height: 667, dark: false },
-    { name: 'qr-mobile-dark', path: '/tools/qr-generator/', width: 375, height: 667, dark: true },
-    { name: 'cookies-desktop', path: '/cookies/', width: 1280, height: 800, dark: false },
+    { name: 'home-desktop-light', path: '/', width: 1280, height: 800, dark: false, fullPage: true },
+    { name: 'home-desktop-dark', path: '/', width: 1280, height: 800, dark: true, fullPage: true },
+    { name: 'home-mobile-light', path: '/', width: 375, height: 667, dark: false, fullPage: true },
+    { name: 'home-mobile-dark', path: '/', width: 375, height: 667, dark: true, fullPage: true },
+    { name: 'qr-desktop-light', path: '/tools/qr-generator/', width: 1280, height: 800, dark: false, fullPage: false },
+    { name: 'qr-desktop-dark', path: '/tools/qr-generator/', width: 1280, height: 800, dark: true, fullPage: false },
+    { name: 'qr-mobile-light', path: '/tools/qr-generator/', width: 375, height: 667, dark: false, fullPage: false },
+    { name: 'qr-mobile-dark', path: '/tools/qr-generator/', width: 375, height: 667, dark: true, fullPage: false },
+    { name: 'cookies-desktop', path: '/cookies/', width: 1280, height: 800, dark: false, fullPage: false },
   ];
 
   for (const t of tasks) {
@@ -72,7 +72,7 @@ async function capture() {
       });
     }
     await page.goto(`http://localhost:4324${t.path}`, { waitUntil: 'networkidle' });
-    await page.screenshot({ path: path.join(outDir, `${t.name}.png`), fullPage: false });
+    await page.screenshot({ path: path.join(outDir, `${t.name}.png`), fullPage: !!t.fullPage });
     console.log(`Saved screenshot: ${t.name}.png`);
     await context.close();
   }

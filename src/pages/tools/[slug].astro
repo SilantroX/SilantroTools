@@ -3,6 +3,7 @@
 import { getCollection, render } from 'astro:content';
 import ToolLayout from '@/layouts/ToolLayout.astro';
 import QrTool from '@/tools/qr-generator/QrTool';
+import ImageCompressorTool from '@/tools/image-compressor/ImageCompressorTool';
 
 export async function getStaticPaths() {
   const tools = await getCollection('tools');
@@ -27,6 +28,8 @@ const slug = tool.id.replace(/\.md$/, '');
   <div slot="tool-workspace">
     {slug === 'qr-generator' ? (
       <QrTool client:load />
+    ) : slug === 'image-compressor' ? (
+      <ImageCompressorTool client:load />
     ) : (
       <div class="surface-card p-12 text-center max-w-lg mx-auto space-y-4">
         <div class="w-10 h-10 mx-auto rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-500 font-mono text-sm">
