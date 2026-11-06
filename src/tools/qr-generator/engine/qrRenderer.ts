@@ -3,7 +3,15 @@ import type QRCodeStyling from 'qr-code-styling';
 import type { Options, FileExtension } from 'qr-code-styling';
 import type { QrOptionsState } from '../types';
 
+let cachedModule: typeof import('qr-code-styling') | null = null;
 let qrInstance: QRCodeStyling | null = null;
+
+async function getModule() {
+  if (!cachedModule) {
+    cachedModule = await import('qr-code-styling');
+  }
+  return cachedModule.default;
+}
 
 /**
  * Convierte el estado de la aplicación en el string de carga útil estándar del QR
@@ -12,7 +20,7 @@ export function buildQrPayload(state: QrOptionsState): string {
   switch (state.contentType) {
     case 'url': {
       const text = state.rawText.trim();
-      return text || 'https://tools.silantrolabs.com';
+      return text || 'https://silantrolabs.com';
     }
 
     case 'text':
@@ -53,26 +61,8 @@ export function buildQrPayload(state: QrOptionsState): string {
     }
 
     default:
-      return 'https://tools.silantrolabs.com';
+      return 'https://silantrolabs.com';
   }
-}
-
-/**
- * Obtiene o crea la instancia singleton de QRCodeStyling en el navegador
- */
-export async function getQrEngine(options: Options): Promise<QRCodeStyling> {
-  if (typeof window === 'undefined') {
-    throw new Error('QRCodeStyling solo puede ejecutarse en el navegador del cliente');
-  }
-
-  if (!qrInstance) {
-    const { default: QRCodeStylingModule } = await import('qr-code-styling');
-    qrInstance = new QRCodeStylingModule(options);
-  } else {
-    qrInstance.update(options);
-  }
-
-  return qrInstance;
 }
 
 /**
@@ -116,6 +106,39 @@ export function buildEngineOptions(state: QrOptionsState, size: number = 320): O
 }
 
 /**
+ * Obtiene o crea la instancia singleton de QRCodeStyling en el cliente
+ */
+export async function getQrEngine(options: Options): Promise<QRCodeStyling> {
+  if (typeof window === 'undefined') {
+    throw new Error('QRCodeStyling solo puede ejecutarse en el navegador del cliente');
+  }
+
+  const QRCodeStylingClass = await getModule();
+  if (!qrInstance) {
+    qrInstance = new QRCodeStylingClass(options);
+  } else {
+    qrInstance.update(options);
+  }
+
+  return qrInstance;
+}
+
+/**
+ * Renderiza el código QR dentro del elemento contenedor especificado
+ */
+export async function renderQrCode(container: HTMLElement, options: Options): Promise<QRCodeStyling> {
+  if (typeof window === 'undefined') {
+    throw new Error('QRCodeStyling solo puede ejecutarse en el navegador del cliente');
+  }
+
+  const QRCodeStylingClass = await getModule();
+  container.innerHTML = '';
+  const qr = new QRCodeStylingClass(options);
+  qr.append(container);
+  return qr;
+}
+
+/**
  * Descarga el código QR con el tamaño y formato deseado
  */
 export async function downloadQr(state: QrOptionsState, format: FileExtension = 'png'): Promise<void> {
@@ -125,8 +148,8 @@ export async function downloadQr(state: QrOptionsState, format: FileExtension = 
     highResOptions.type = 'svg';
   }
 
-  const { default: QRCodeStylingModule } = await import('qr-code-styling');
-  const exporter = new QRCodeStylingModule(highResOptions);
+  const QRCodeStylingClass = await getModule();
+  const exporter = new QRCodeStylingClass(highResOptions);
 
   await exporter.download({
     name: `silantro-qr-${Date.now()}`,

@@ -3,6 +3,8 @@ import type { DotType, CornerSquareType, CornerDotType, ErrorCorrectionLevel, Fi
 
 export type QrContentType = 'url' | 'text' | 'wifi' | 'email' | 'vcard';
 
+export type QrStep = 1 | 2 | 3 | 4;
+
 export interface WifiData {
   ssid: string;
   password?: string;
@@ -63,4 +65,12 @@ export interface QrPreset {
   dotsType: DotType;
   cornersSquareType: CornerSquareType;
   cornersDotType: CornerDotType;
+}
+
+export interface ContentTypeMeta {
+  id: QrContentType;
+  title: string;
+  description: string;
+  badge?: string;
+  iconPath: string;
 }
